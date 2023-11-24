@@ -1,24 +1,20 @@
-include <./libraries/>
-nfc_diameter = 25;
+use <bottom.scad>;
+use <top.scad>;
+nfc_diameter = 26;
+nfc_thinkness = 1;
 
-thickness = 5;
-padding = 2;
+thickness = 3;
+padding = 3;
 icon = "./icons/toggle.svg";
 icon_depth = 2;
 
+screw_depth = 2;
+screw_pitch = 1;
+thread_angle = 45;
+
+spacing = 36;
+
 $fn = 100;
 
-module top() {
-  difference() {
-    cylinder(h = 5, d = nfc_diameter + padding);
-    translate([0, 0, thickness - icon_depth]) icon();
-  }
-}
-
-module icon() {
-  scale = nfc_diameter / 12;
-  scale([scale, scale, 1]) linear_extrude(height = icon_depth) 
-    import(icon, center=true);
-}
-
-top();
+translate([ spacing / 2, 0, screw_depth ]) top();
+rotate([ 180, 0, 0 ]) translate([ spacing / -2, 0, -(thickness + padding / 2) ]) bottom();
