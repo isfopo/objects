@@ -1,24 +1,24 @@
-inner_diameter = 12;
-outer_diameter = 23;
+inner_diameter = 11;
+outer_diameter = 17;
 
-inner_offset = 2;
+inner_offset = 1;
 
-height = 20;
+height = 10;
 
 knotch_width = 1;
 
-screw_diameter = 4;
-screw_head_diameter = 7;
-screw_offset = 7.5;
+screw_diameter = 2;
+screw_head_diameter = 2;
+screw_offset = 6;
 
 use_strait_hole = false;
 use_loop = true;
 
 through_hole_diameter = 2;
-through_hole_inset = -1.5;
+through_hole_inset = -1;
 loop_diameter = 8;
 
-$fn = 200;
+$fn = 100;
 
 difference()
 {
