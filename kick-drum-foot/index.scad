@@ -4,9 +4,9 @@ top_diamater = 21;
 bottom_diamater = 34;
 top_height = 34;
 bottom_height = 8;
-thread_diameter = 11;
+thread_diameter = 10;
 
-$fn = 10;
+$fn = 100;
 
 module kick_drum_foot()
 {
@@ -18,7 +18,7 @@ module kick_drum_foot()
 			translate([ 0, 0, top_height ])
 			cylinder(d1 = bottom_diamater, d2 = top_diamater, h = bottom_height);
 		}
-		translate([ 0, 0, top_height / 2 ])
+		translate([ 0, 0, (top_height / 2) - 1 ])
 		threaded_rod(d = thread_diameter, l = top_height, pitch = 1.5875);
 	}
 }
