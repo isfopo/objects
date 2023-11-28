@@ -6,7 +6,7 @@ nfc_thinkness = 1;
 
 thickness = 3;
 padding = 3;
-icon = "./icons/wifi.svg";
+icon = "./icons/book.svg";
 icon_depth = 2;
 
 screw_depth = 2;
