@@ -1,11 +1,26 @@
+use <../libraries/helpers.scad> // https://github.com/cfinke/OpenSCAD-Dovetails
+
 width = 70;
 divisions = 6;
-min_height = 2;
+min_height = 5;
 max_height = 8;
+
+join_length = 50;
+join_radius = 4;
 
 number_of_blocks = divisions * divisions;
 
 module panel()
+{
+	difference()
+	{
+		blocks();
+		join_insert("x");
+		join_insert("y");
+	}
+}
+
+module blocks()
 {
 	heights = rands(min_height, max_height, number_of_blocks);
 	division_width = width / divisions;
@@ -20,4 +35,20 @@ module panel()
 	}
 }
 
+module join_insert(direction = "x")
+{
+	offset = (width - join_length) / 2;
+	if (direction == "x")
+	{
+		translate([ offset, 0, 0 ])
+		rotate([ 0, 90, 0 ])
+		halfcylinder(r = join_radius, h = join_length);
+	}
+	else
+	{
+		translate([ 0, offset, 0 ])
+		rotate([ -90, 90, 0 ])
+		halfcylinder(r = join_radius, h = join_length);
+	}
+}
 panel();
