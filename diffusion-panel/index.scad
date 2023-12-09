@@ -1,5 +1,5 @@
 width = 70;
-divisions = 10;
+divisions = 6;
 min_height = 2;
 max_height = 8;
 
@@ -13,7 +13,9 @@ module panel()
 	for (i = [0:number_of_blocks - 1])
 	{
 		row = i % divisions;
-		translate([ i, row * division_width, 0 ])
+		col = floor(i / divisions);
+
+		translate([ row * division_width, col * division_width, 0 ])
 		cube([ division_width, division_width, heights[i] ]);
 	}
 }
