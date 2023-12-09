@@ -1,6 +1,5 @@
 include <inserts.scad>
 
-width = 180;
 base_height = 10;
 apex_height = 20;
 padding = 10;
@@ -10,12 +9,9 @@ max_deviation = 30;
 
 module pyramid_panel()
 {
-	inserts()
-	{
-		translate([ padding, padding, base_height - .1 ])
-		pyramid();
-		base();
-	}
+	translate([ padding, padding, base_height - .1 ])
+	pyramid();
+	base();
 }
 
 module base()
