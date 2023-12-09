@@ -1,5 +1,5 @@
 join_length = 50;
-join_radius = 2;
+join_radius = 5;
 
 module inserts()
 {
