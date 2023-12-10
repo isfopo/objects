@@ -1,5 +1,6 @@
 include <block-panel.scad>
 include <pyramid-panel.scad>
+include <multi-pyramid-panel.scad>
 include <inserts.scad>
 include <hang-holes.scad>
 
@@ -12,7 +13,7 @@ dovetail_wings = 2;
 
 $fn = 20;
 
-inserts(join_length, join_depth, dovetail_wings)
+interlocking_inserts(1, 4, 1, 3, 2)
 {
-	add_holes(width, hole_inset) pyramid_panel();
+	add_holes(width, hole_inset) multi_pyramid_panel();
 }

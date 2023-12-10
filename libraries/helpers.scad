@@ -19,3 +19,13 @@ module quartercylinder(h, r)
 		cube([ r * 2 + 0.2, r + 0.1, h + 0.2 ]);
 	} // df
 } // mod
+
+module hole(radius, depth)
+{
+	union()
+	{
+		translate([ 0, 0, depth - radius / 2 ])
+		sphere(r = radius);
+		cylinder(h = depth - radius / 2, r = radius);
+	}
+}
