@@ -11,9 +11,15 @@ join_length = 50;
 join_depth = 6;
 dovetail_wings = 2;
 
+insert_radius = 1;
+insert_depth = 4;
+insert_bridge_depth = 1;
+insert_inset = 3;
+inserts_per_side = 3;
+
 $fn = 10;
 
-interlocking_inserts(1, 4, 1, 3, 3, width)
+interlocking_inserts(insert_radius, insert_depth, insert_bridge_depth, insert_inset, inserts_per_side, width)
 {
 	add_holes(width, hole_inset)
 	{
