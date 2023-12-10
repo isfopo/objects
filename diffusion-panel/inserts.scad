@@ -16,8 +16,8 @@ module dovetail_inserts(join_length, join_depth, dovetail_wings, end = [ false, 
 				join_insert("y", out = true);
 			}
 		}
-		join_insert("x");
-		join_insert("y");
+		// join_insert("x");
+		// join_insert("y");
 	}
 }
 
