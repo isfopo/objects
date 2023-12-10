@@ -15,5 +15,8 @@ $fn = 20;
 
 interlocking_inserts(1, 4, 1, 3, 2)
 {
-	add_holes(width, hole_inset) multi_pyramid_panel();
+	add_holes(width, hole_inset)
+	{
+		block_panel(width = width, min_height = 10, max_height = 20);
+	}
 }
