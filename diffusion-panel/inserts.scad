@@ -1,9 +1,4 @@
-join_length = 50;
-join_depth = 4;
-
-dovetail_wings = 2;
-
-module inserts(end = [ false, false ])
+module inserts(join_length, join_depth, dovetail_wings, end = [ false, false ])
 {
 	difference()
 	{

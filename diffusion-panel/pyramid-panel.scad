@@ -2,7 +2,7 @@ include <inserts.scad>
 
 base_height = 10;
 apex_height = 20;
-padding = 10;
+padding = 6;
 
 min_deviation = 20;
 max_deviation = 30;
