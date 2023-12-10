@@ -89,6 +89,11 @@ module gap(radius, depth, bridge_depth, inset)
 	}
 }
 
-module lock(radius, depth, spacing)
+module lock(radius, depth, bridge_depth, inset)
 {
+	union()
+	{
+		gap(radius, depth, bridge_depth, inset);
+		mirror([ 1, 0, 0 ]) gap(radius, depth, bridge_depth, inset);
+	}
 }
