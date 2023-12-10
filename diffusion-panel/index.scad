@@ -1,8 +1,8 @@
-include <block-panel.scad>
-include <pyramid-panel.scad>
-include <multi-pyramid-panel.scad>
-include <inserts.scad>
-include <hang-holes.scad>
+use <block-panel.scad>
+use <pyramid-panel.scad>
+use <multi-pyramid-panel.scad>
+use <inserts.scad>
+use <hang-holes.scad>
 
 width = 120;
 hole_inset = width / 4;
@@ -17,7 +17,7 @@ insert_bridge_depth = 1;
 insert_inset = 3;
 inserts_per_side = 3;
 
-make_lock = true;
+make_lock = false;
 
 $fn = 10;
 
@@ -25,6 +25,8 @@ interlocking_inserts(insert_radius, insert_depth, insert_bridge_depth, insert_in
 {
 	add_holes(width, hole_inset)
 	{
-		block_panel(width = width, min_height = 10, max_height = 20);
+		// block_panel(width = width, min_height = 10, max_height = 20);
+		pyramid_panel(width = width, padding = 6, base_height = 10, apex_height = 20, min_deviation = 20,
+		              max_deviation = 30);
 	}
 }

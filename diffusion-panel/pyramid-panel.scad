@@ -1,25 +1,21 @@
 include <inserts.scad>
 
-base_height = 10;
-apex_height = 20;
-padding = 6;
-
-min_deviation = 20;
-max_deviation = 30;
-
-module pyramid_panel()
+module pyramid_panel(width, padding, base_height, apex_height, min_deviation, max_deviation)
 {
-	translate([ padding, padding, base_height - .1 ])
-	pyramid();
-	base();
+	union()
+	{
+		translate([ padding, padding, base_height ])
+		pyramid(width, padding, base_height, apex_height, min_deviation, max_deviation);
+		base(width, base_height);
+	}
 }
 
-module base()
+module base(width, base_height)
 {
 	cube([ width, width, base_height ]);
 }
 
-module pyramid()
+module pyramid(width, padding, base_height, apex_height, min_deviation, max_deviation)
 {
 	diviation_range = max_deviation - min_deviation;
 	offests = rands(-diviation_range, diviation_range, 2);
