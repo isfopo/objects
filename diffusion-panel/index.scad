@@ -8,7 +8,7 @@ hole_inset = width / 4;
 
 $fn = 20;
 
-inserts()
+inserts([ false, true ])
 {
 	add_holes(width, hole_inset) pyramid_panel();
 }

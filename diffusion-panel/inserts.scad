@@ -3,15 +3,21 @@ join_depth = 4;
 
 dovetail_wings = 2;
 
-module inserts()
+module inserts(end = [ false, false ])
 {
 	difference()
 	{
 		union()
 		{
 			children();
-			join_insert("x", out = true);
-			join_insert("y", out = true);
+			if (!end[0])
+			{
+				join_insert("x", out = true);
+			}
+			if (!end[1])
+			{
+				join_insert("y", out = true);
+			}
 		}
 		join_insert("x");
 		join_insert("y");
