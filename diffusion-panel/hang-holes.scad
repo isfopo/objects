@@ -1,21 +1,18 @@
 include <../libraries/helpers.scad>
 
-hole_radius = 4;
-hole_depth = 8;
-
-module add_holes(width, inset)
+module add_holes(width, radius, depth, inset)
 {
 	difference()
 	{
 		children();
 		translate([ inset, inset, 0 ])
-		hole(hole_radius, hole_depth);
+		hole(radius, depth);
 		translate([ width - inset, inset, 0 ])
-		hole(hole_radius, hole_depth);
+		hole(radius, depth);
 		translate([ inset, width - inset, 0 ])
-		hole(hole_radius, hole_depth);
+		hole(radius, depth);
 
 		translate([ width - inset, width - inset, 0 ])
-		hole(hole_radius, hole_depth);
+		hole(radius, depth);
 	}
 }
