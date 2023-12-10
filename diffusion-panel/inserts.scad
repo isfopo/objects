@@ -48,8 +48,11 @@ module interlocking_inserts(radius, depth, bridge_depth, inset, per_side)
 	difference()
 	{
 		children();
-		translate([ 0, width / 2, 0 ])
-		gap(radius, depth, bridge_depth, inset);
+		for (i = [1:per_side])
+		{
+			translate([ 0, (width / (per_side + 1)) * i, 0 ])
+			gap(radius, depth, bridge_depth, inset);
+		}
 	}
 }
 

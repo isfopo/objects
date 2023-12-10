@@ -13,7 +13,7 @@ dovetail_wings = 2;
 
 $fn = 20;
 
-interlocking_inserts(1, 4, 1, 3, 2)
+interlocking_inserts(1, 4, 1, 3, 3)
 {
 	add_holes(width, hole_inset)
 	{
