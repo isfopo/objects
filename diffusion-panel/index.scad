@@ -3,7 +3,7 @@ include <pyramid-panel.scad>
 include <inserts.scad>
 include <hang-holes.scad>
 
-width = 180;
+width = 120;
 hole_inset = width / 4;
 
 $fn = 20;

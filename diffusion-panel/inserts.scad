@@ -1,5 +1,7 @@
 join_length = 50;
-join_radius = 5;
+join_depth = 4;
+
+dovetail_wings = 2;
 
 module inserts()
 {
@@ -22,27 +24,16 @@ module join_insert(direction = "x", out = false)
 	if (direction == "x")
 	{
 		translate([ offset, out ? width : 0, 0 ])
-		rotate([ 0, 90, 0 ])
-		if (out)
-		{
-			halfcylinder(r = join_radius, h = join_length);
-		}
-		else
-		{
-			cylinder(r = join_radius, h = join_length);
-		}
+		linear_extrude(height = 10) polygon([
+			[ 0, 0 ], [ -dovetail_wings, join_depth ], [ join_length + dovetail_wings, join_depth ], [ join_length, 0 ]
+		]);
 	}
 	else
 	{
-		translate([ out ? width : 0, offset, 0 ])
-		rotate([ -90, 90, 0 ])
-		if (out)
-		{
-			halfcylinder(r = join_radius, h = join_length);
-		}
-		else
-		{
-			cylinder(r = join_radius, h = join_length);
-		}
+		translate([ out ? width : 0, offset + join_length, 0 ])
+		rotate([ 0, 0, -90 ])
+		linear_extrude(height = 10) polygon([
+			[ 0, 0 ], [ -dovetail_wings, join_depth ], [ join_length + dovetail_wings, join_depth ], [ join_length, 0 ]
+		]);
 	}
 }
