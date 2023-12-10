@@ -43,30 +43,37 @@ module join_insert(direction = "x", out = false)
 	}
 }
 
-module interlocking_inserts(radius, depth, bridge_depth, inset, per_side, width)
+module interlocking_inserts(radius, depth, bridge_depth, inset, per_side, width, make_lock = false)
 {
-	difference()
+	if (make_lock)
 	{
-		children();
-		for (i = [1:per_side])
+		lock(insert_radius, insert_depth, insert_bridge_depth, insert_inset);
+	}
+	else
+	{
+		difference()
 		{
-			union()
+			children();
+			for (i = [1:per_side])
 			{
-				translate([ 0, (width / (per_side + 1)) * i, 0 ])
-				gap(radius, depth, bridge_depth, inset);
+				union()
+				{
+					translate([ 0, (width / (per_side + 1)) * i, 0 ])
+					gap(radius, depth, bridge_depth, inset);
 
-				mirror([ 1, -1, 0 ]) translate([ 0, (width / (per_side + 1)) * i, 0 ])
-				gap(radius, depth, bridge_depth, inset);
+					mirror([ 1, -1, 0 ]) translate([ 0, (width / (per_side + 1)) * i, 0 ])
+					gap(radius, depth, bridge_depth, inset);
 
-				translate([ width, 0, 0 ])
-				rotate([ 0, 0, 180 ])
-				mirror([ 0, -1, 0 ]) translate([ 0, (width / (per_side + 1)) * i, 0 ])
-				gap(radius, depth, bridge_depth, inset);
+					translate([ width, 0, 0 ])
+					rotate([ 0, 0, 180 ])
+					mirror([ 0, -1, 0 ]) translate([ 0, (width / (per_side + 1)) * i, 0 ])
+					gap(radius, depth, bridge_depth, inset);
 
-				translate([ 0, width, 0 ])
-				rotate([ 0, 0, -90 ])
-				mirror([ 0, 0, 0 ]) translate([ 0, (width / (per_side + 1)) * i, 0 ])
-				gap(radius, depth, bridge_depth, inset);
+					translate([ 0, width, 0 ])
+					rotate([ 0, 0, -90 ])
+					mirror([ 0, 0, 0 ]) translate([ 0, (width / (per_side + 1)) * i, 0 ])
+					gap(radius, depth, bridge_depth, inset);
+				}
 			}
 		}
 	}

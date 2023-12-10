@@ -17,9 +17,11 @@ insert_bridge_depth = 1;
 insert_inset = 3;
 inserts_per_side = 3;
 
+make_lock = true;
+
 $fn = 10;
 
-interlocking_inserts(insert_radius, insert_depth, insert_bridge_depth, insert_inset, inserts_per_side, width)
+interlocking_inserts(insert_radius, insert_depth, insert_bridge_depth, insert_inset, inserts_per_side, width, make_lock)
 {
 	add_holes(width, hole_inset)
 	{
