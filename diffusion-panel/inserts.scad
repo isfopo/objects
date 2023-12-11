@@ -47,7 +47,7 @@ module interlocking_inserts(radius, depth, bridge_depth, inset, per_side, width,
 {
 	if (make_lock)
 	{
-		lock(insert_radius, insert_depth, insert_bridge_depth, insert_inset);
+		lock(radius, depth, bridge_depth, inset);
 	}
 	else
 	{
