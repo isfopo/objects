@@ -1,5 +1,5 @@
 #!/bin/bash
-for i in {1..3}; do
+for i in $( seq 1 $1); do
   openscad -o build/panel_${i}.stl index.scad
 done
 
