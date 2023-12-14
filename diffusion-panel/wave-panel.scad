@@ -1,31 +1,36 @@
-module wave_panel(width, min_height = 4, max_height = 5)
+module wave_panel(width, min_height = 4, max_height = 5, precision = 2)
 {
 	union()
 	{
 		cube([ width, width, min_height ]);
-		translate([ 0, 0, min_height ])
-		waves(width, max_height - min_height, 4, 3.5, 1);
+		translate([ 0, 0, 0 ])
+		waves_2d(width, max_height - min_height, (width * precision) / 19.95, (width * precision) / 19.95 / 2,
+		         precision);
 	}
 }
 
-module waves(width, height, cols, freq, precision)
+module waves_1d(width, height, cols, freq, precision)
 {
 	col_width = width / cols;
 
-	for (i = [0:width - 1])
+	for (i = [0:(width - 1) / precision])
 	{
 		for (j = [0:cols - 1])
 		{
-			translate([ i, j * col_width, 0 ])
+			translate([ i * precision, j * col_width, 0 ])
 			if (j % 2 == 0)
 			{
-
-				cube([ 1, col_width, cos(i * freq) * height + height ]);
+				cube([ precision, col_width, sin(i * freq) * height + height ]);
 			}
 			else
 			{
-				cube([ 1, col_width, -cos(i * freq) * height + height ]);
+				cube([ precision, col_width, -sin(i * freq) * height + height ]);
 			}
 		}
 	}
+}
+
+module waves_2d(width, height, x_freq, y_freq, precision)
+{
+	scale([ width / 10, width / 10, 1 ]) surface(file = "gen/off10.dat", convexity = 10, invert = true);
 }
