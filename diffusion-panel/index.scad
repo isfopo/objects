@@ -28,6 +28,7 @@ interlocking_inserts(radius = 1, depth = 4, bridge_depth = 1, inset = 3, per_sid
 		//  pyramid_panel(width = width, padding = 6, base_height = 10, apex_height = 20, min_deviation = 20,
 		//                max_deviation = 30);
 		// wave_panel(width = width, min_height = 4, max_height = 16);
-		edison_panel(10);
 	}
 }
+
+edison_panel(30, 40, 40);
