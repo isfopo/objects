@@ -1,19 +1,21 @@
 module edison(base = 1)
 {
+	sqrt_of_three = sqrt(3);
+
 	points = [
 		[ 0, 0 ],
-		[ 0, sqrt(3) ],
-		[ 1, sqrt(3) ],
-		[ 3 / 2, (3 * sqrt(3)) / 2 ],
-		[ 3, sqrt(3) ],
+		[ 0, sqrt_of_three ],
+		[ 1, sqrt_of_three ],
+		[ 3 / 2, (3 * sqrt_of_three) / 2 ],
+		[ 3, sqrt_of_three ],
 		[ 3, 0 ],
 		[ 4, 0 ],
-		[ 9 / 2, -(sqrt(3) / 2) ],
-		[ 3, -sqrt(3) ],
-		[ 3 / 2, -(sqrt(3) / 2) ],
-		[ 1, -sqrt(3) ],
-		[ -1, -sqrt(3) ],
-		[ -(3 / 2), -(sqrt(3) / 2) ],
+		[ 9 / 2, -(sqrt_of_three / 2) ],
+		[ 3, -sqrt_of_three ],
+		[ 3 / 2, -(sqrt_of_three / 2) ],
+		[ 1, -sqrt_of_three ],
+		[ -1, -sqrt_of_three ],
+		[ -(3 / 2), -(sqrt_of_three / 2) ],
 		[ 0, 0 ],
 	];
 
