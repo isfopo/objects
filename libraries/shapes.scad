@@ -1,4 +1,4 @@
-module edison(base = 1)
+module edison(base = 1, flip = false)
 {
 	sqrt_of_three = sqrt(3);
 
@@ -18,6 +18,6 @@ module edison(base = 1)
 		[ -(3 / 2), -(sqrt_of_three / 2) ],
 		[ 0, 0 ],
 	];
-
+	mirror([ flip ? 1 : 0, 0, 0 ]) translate([ -sqrt_of_three * base, 0, 0 ])
 	scale([ base, base ]) polygon(points = points);
 }

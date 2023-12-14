@@ -3,7 +3,6 @@ use <pyramid-panel.scad>
 use <multi-pyramid-panel.scad>
 use <absorption-panel.scad>
 use <wave-panel.scad>
-use <edison-panel.scad>
 use <inserts.scad>
 use <hang-holes.scad>
 
@@ -30,5 +29,3 @@ interlocking_inserts(radius = 1, depth = 4, bridge_depth = 1, inset = 3, per_sid
 		// wave_panel(width = width, min_height = 4, max_height = 16);
 	}
 }
-
-edison_panel(30, 40, 40);
