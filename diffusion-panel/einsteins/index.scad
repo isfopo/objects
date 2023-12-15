@@ -11,7 +11,7 @@ flip = false;
 hole_radius = 2;
 hole_depth = 5;
 
-connector_height = 5;
+connector_height = 2;
 
 make_connector = true;
 

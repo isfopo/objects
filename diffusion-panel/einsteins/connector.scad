@@ -11,7 +11,12 @@ module connector(base = 1, height = 1, radius = .1, depth = 2)
 
 	union()
 	{
-		linear_extrude(height = height) polygon(points = points);
+		translate([ (sqrt_of_three / 2) * base, 0 ])
+		difference()
+		{
+			cylinder(r = base, h = height);
+			cylinder(r = base / sqrt_of_three, h = height);
+		}
 		for (i = [0:2])
 		{
 			translate(points[i])
