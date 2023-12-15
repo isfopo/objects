@@ -5,8 +5,8 @@ module connector(base = 1, height = 1, radius = .1, depth = 2)
 	sqrt_of_three = sqrt(3);
 	points = [
 		[ 0, 0 ],
-		[ (3 / 2) * base, -(3 / 4) * base ],
-		[ (3 / 2) * base, (3 / 4) * base ],
+		[ ((3 * sqrt_of_three) / 4) * base, -(3 / 4) * base ],
+		[ ((3 * sqrt_of_three) / 4) * base, (3 / 4) * base ],
 	];
 
 	union()
