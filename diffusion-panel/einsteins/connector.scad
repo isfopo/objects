@@ -1,6 +1,6 @@
 include <hang-holes.scad>
 
-module connector(base = 1, height = 1, radius = .1, depth = 2)
+module connector(base = 1, height = 1, radius = .1, depth = 2, tolerence = .1)
 {
 	sqrt_of_three = sqrt(3);
 	points = [
@@ -20,7 +20,7 @@ module connector(base = 1, height = 1, radius = .1, depth = 2)
 		for (i = [0:2])
 		{
 			translate(points[i])
-			hole(radius, depth);
+			hole(radius - tolerence, depth);
 		}
 	}
 }
