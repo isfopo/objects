@@ -93,5 +93,5 @@ end
 
 [x y] = meshgrid(0:0.05:10, 0:0.05:10);
 d = perlin2d(x, y);
-d = (d*20)+5;
+d = (d*10)+5;
 save("-ascii", "perlin.dat", "d");
