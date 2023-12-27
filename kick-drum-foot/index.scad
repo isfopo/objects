@@ -21,23 +21,29 @@ module kick_drum_foot()
 {
 	difference()
 	{
-		%union()
-		{
-			cylinder(d1 = top_diamater, d2 = bottom_diamater, h = top_height);
-			translate([ 0, 0, top_height ])
-			cylinder(d1 = bottom_diamater, d2 = top_diamater, h = bottom_height);
-		}
+		body();
+		threads();
+	}
+}
 
-		union()
-		{
-			// leg threading
-			translate([ 0, 0, (leg_screw_depth / 2) ])
-			threaded_rod(d = leg_thread_diameter, l = leg_screw_depth, pitch = leg_pitch);
+module body() {
+	union()
+	{
+		cylinder(d1 = top_diamater, d2 = bottom_diamater, h = top_height);
+		translate([ 0, 0, top_height ])
+		cylinder(d1 = bottom_diamater, d2 = top_diamater, h = bottom_height);
+	}
+}
 
-			// peg threading
-			translate([ 0, 0, (leg_screw_depth ) + (peg_screw_depth/2) ])
-			threaded_rod(d = peg_thread_diameter, l = peg_screw_depth, pitch = peg_pitch);
-		}
+module threads() {
+	union(){
+		// leg threading
+		translate([ 0, 0, (leg_screw_depth / 2) ])
+		threaded_rod(d = leg_thread_diameter, l = leg_screw_depth, pitch = leg_pitch);
+
+		// peg threading
+		translate([ 0, 0, (leg_screw_depth ) + (peg_screw_depth/2) + .1 ])
+		threaded_rod(d = peg_thread_diameter, l = peg_screw_depth + .2, pitch = peg_pitch);
 	}
 }
 
