@@ -14,7 +14,7 @@ legs = 3;
 
 screw_diameter = 4;
 screw_head_diameter = 8;
-screw_head_height = 8;
+screw_head_height = 2;
 
 $fn = 10;
 
@@ -35,7 +35,11 @@ module coat_rack() {
           cylinder(d=dowel_diameter, h=dowel_length, center=true, $fn = 20);  
           rotate([90, 0, 0])
           translate([0, 0, dowel_diameter/2])
-          cylinder(d=screw_diameter, h=wall_thickness);
+          union() {
+            cylinder(d=screw_diameter, h=wall_thickness);
+            translate([0, 0, wall_thickness - (screw_head_height/2)])
+            cylinder(d1=screw_diameter, d2=screw_head_diameter, h=screw_head_height, center=true);
+          }
         }
     }
   }
