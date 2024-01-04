@@ -27,7 +27,7 @@ $fn = 100;
 
 outer_fn = 9;
 
-part="hook"; // "connector" | "coupler" | "foot" | "top" | "hook"
+part="foot"; // "connector" | "coupler" | "foot" | "top" | "hook"
 
 module connector() {
   difference() {
@@ -76,10 +76,10 @@ module foot() {
       sphere(d=outer_diameter, $fn=outer_fn);
       cylinder(d=outer_diameter, h=foot_height, $fn=outer_fn);
     }
-      cylinder(d=dowel_diameter, h=foot_height);
-      translate([0, (dowel_diameter/2)- (screw_head_height/2), foot_height/2])
-      rotate([-90, 0, 0])
-      screw_hole(center=false);
+    cylinder(d=dowel_diameter, h=foot_height);
+    translate([-(dowel_diameter/2) + (screw_head_height/2), 0, foot_height/2])
+    rotate([0, -90, 0])
+    screw_hole(center=false);
   }
 }
 
