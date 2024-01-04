@@ -1,4 +1,5 @@
 height = 40; // mm
+coupler_height = height;
 dowel_length = 1000; // mm
 
 dowel_diameter = 20; // mm
@@ -16,15 +17,19 @@ screw_diameter = 4;
 screw_head_diameter = 8;
 screw_head_height = 2;
 
-$fn = 10;
+$fn = 100;
 
-module coat_rack() {
+outer_fn = 10;
+
+part="foot";
+
+module center() {
   difference() {
     hull() 
     for(i = [0: 360/legs: 360]) {
       rotate([side_angle, outward_angle, i])
       translate([spacing, 0, 0])
-        cylinder(d=outer_diameter, h=height, center=true);
+        cylinder(d=outer_diameter, h=height, center=true, $fn=outer_fn);
     }
     
     for(i = [0: 360/legs: 360]) {
@@ -32,17 +37,53 @@ module coat_rack() {
       translate([spacing, 0, 0])
       rotate([0, 0, 90])
         union() {
-          cylinder(d=dowel_diameter, h=dowel_length, center=true, $fn = 20);  
+          cylinder(d=dowel_diameter, h=dowel_length, center=true);  
           rotate([90, 0, 0])
           translate([0, 0, dowel_diameter/2])
-          union() {
-            cylinder(d=screw_diameter, h=wall_thickness);
-            translate([0, 0, wall_thickness - (screw_head_height/2)])
-            cylinder(d1=screw_diameter, d2=screw_head_diameter, h=screw_head_height, center=true);
-          }
+          screw_hole();
         }
     }
   }
 }
 
-coat_rack();
+module coupler() {
+  difference() { 
+    cylinder(d=outer_diameter, h=coupler_height, center=true, $fn=outer_fn);
+    union() {
+      cylinder(d=dowel_diameter, h=coupler_height, center=true);
+      translate([0, (dowel_diameter/2)- (screw_head_height/2), coupler_height/4])
+      rotate([-90, 0, 0])
+      screw_hole(center=false);
+    }
+    union() {
+      cylinder(d=dowel_diameter, h=coupler_height, center=true);
+      translate([0, (dowel_diameter/2)- (screw_head_height/2), -coupler_height/4])
+      rotate([-90, 0, 0])
+      screw_hole(center=false);
+    }
+  }
+}
+
+module foot() {
+  
+}
+
+module screw_hole(center=true) {
+  union() {
+    cylinder(d=screw_diameter, h=wall_thickness);
+    translate([0, 0, wall_thickness - (screw_head_height/2)])
+    cylinder(d1=screw_diameter, d2=screw_head_diameter, h=screw_head_height, center=center);
+  }
+}
+
+if (part == "center"){
+  center();
+} 
+
+if (part == "coupler"){
+  coupler();
+}
+
+if (part == "foot"){
+  foot();
+}
