@@ -1,5 +1,6 @@
 height = 40; // mm
 coupler_height = height;
+foot_height = height;
 dowel_length = 1000; // mm
 
 dowel_diameter = 20; // mm
@@ -65,7 +66,16 @@ module coupler() {
 }
 
 module foot() {
-  
+  difference() {
+    union() {
+      sphere(d=outer_diameter, $fn=outer_fn);
+      cylinder(d=outer_diameter, h=foot_height, $fn=outer_fn);
+    }
+      cylinder(d=dowel_diameter, h=foot_height);
+      translate([0, (dowel_diameter/2)- (screw_head_height/2), foot_height/2])
+      rotate([-90, 0, 0])
+      screw_hole(center=false);
+  }
 }
 
 module screw_hole(center=true) {
