@@ -88,13 +88,16 @@ module foot() {
 
 module top() {
   difference() {
-    union() {
-      translate([0, 0, -top_sphere/2])
-      sphere(d=top_sphere, $fn=outer_fn);
-      cylinder(d=outer_diameter, h=foot_height, center=true, $fn=outer_fn);
+    hull() {
+      cylinder(d=outer_diameter, h=top_height, center=true, $fn=outer_fn);
+      translate([outer_diameter/2, 0, 0])
+      rotate([side_angle, hook_angle, 0])
+      cylinder(d=hook_diameter, h=hook_length, $fn=outer_fn);
     }
-    cylinder(d=dowel_diameter, h=top_height);
-    translate([-(dowel_diameter/2) + (screw_head_height/2), 0, 0])
+    translate([0, 0, -dowel_length])
+    cylinder(d=dowel_diameter, h=dowel_length);
+
+    translate([-(dowel_diameter/2) + (screw_head_height/2), 0, -top_height/4])
     rotate([0, -90, 0])
     screw_hole(center=false);
   }
