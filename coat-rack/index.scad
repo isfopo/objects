@@ -10,7 +10,7 @@ wall_thickness = (outer_diameter-dowel_diameter)/2;
 spacing = 30; // mm
 
 outward_angle = 10; // deg
-side_angle = 10; // deg
+side_angle = 16; // deg
 
 hook_height = 30;
 hook_diameter = 10; // mm
