@@ -24,7 +24,7 @@ outer_fn = 10;
 
 part="foot";
 
-module center() {
+module connector() {
   difference() {
     hull() 
     for(i = [0: 360/legs: 360]) {
@@ -86,8 +86,8 @@ module screw_hole(center=true) {
   }
 }
 
-if (part == "center"){
-  center();
+if (part == "connector"){
+  connector();
 } 
 
 if (part == "coupler"){
