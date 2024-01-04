@@ -21,7 +21,10 @@ top_height = height;
 top_sphere = 70; // mm
 
 shelf_height = height;
-shelf_length = 50; // mm
+shelf_length = 30; // mm
+shelf_screw_inset = 10; // mm
+shelf_screw_angle = 30; // deg
+shelf_screw_extend = 2.8; // mm
 
 legs = 3;
 
@@ -139,13 +142,18 @@ module shelf() {
     rotate([side_angle, 0, 0])
     translate([outer_diameter/2, -outer_diameter/2, 0])
     cube([shelf_length, outer_diameter, shelf_height]);
+
+    translate([(shelf_length + (outer_diameter/2)) - shelf_screw_inset, 0, shelf_screw_extend/2])
+    rotate([180+side_angle, -shelf_screw_angle, 0])
+    screw_hole(extend=shelf_screw_extend);
   }
 }
 
-module screw_hole(center=true) {
+module screw_hole(center=true, extend = 0) {
+  total_height = wall_thickness + extend;
   union() {
-    cylinder(d=screw_diameter, h=wall_thickness);
-    translate([0, 0, wall_thickness - (screw_head_height/2)])
+    cylinder(d=screw_diameter, h=total_height);
+    translate([0, 0, total_height - (screw_head_height/2)])
     cylinder(d1=screw_diameter, d2=screw_head_diameter, h=screw_head_height, center=center);
   }
 }
