@@ -22,7 +22,7 @@ $fn = 100;
 
 outer_fn = 10;
 
-part="foot";
+part="top"; // "connector" | "coupler" | "foot" | "top" | "hook"
 
 module connector() {
   difference() {
@@ -78,6 +78,10 @@ module foot() {
   }
 }
 
+module top() {}
+
+module hook() {}
+
 module screw_hole(center=true) {
   union() {
     cylinder(d=screw_diameter, h=wall_thickness);
@@ -97,3 +101,12 @@ if (part == "coupler"){
 if (part == "foot"){
   foot();
 }
+
+if (part == "top"){
+  top();
+}
+
+if (part == "hook"){
+  hook();
+}
+
