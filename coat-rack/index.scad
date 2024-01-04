@@ -17,6 +17,9 @@ hook_diameter = 10; // mm
 hook_length = 70; // mm
 hook_angle = 30; // deg
 
+top_height = height;
+top_sphere = 70; // mm
+
 legs = 3;
 
 screw_diameter = 4;
@@ -27,7 +30,7 @@ $fn = 100;
 
 outer_fn = 9;
 
-part="foot"; // "connector" | "coupler" | "foot" | "top" | "hook"
+part="top"; // "connector" | "coupler" | "foot" | "top" | "hook"
 
 module connector() {
   difference() {
@@ -83,7 +86,19 @@ module foot() {
   }
 }
 
-module top() {}
+module top() {
+  difference() {
+    union() {
+      translate([0, 0, -top_sphere/2])
+      sphere(d=top_sphere, $fn=outer_fn);
+      cylinder(d=outer_diameter, h=foot_height, center=true, $fn=outer_fn);
+    }
+    cylinder(d=dowel_diameter, h=top_height);
+    translate([-(dowel_diameter/2) + (screw_head_height/2), 0, 0])
+    rotate([0, -90, 0])
+    screw_hole(center=false);
+  }
+}
 
 module hook() {
   difference() {
