@@ -3,11 +3,11 @@ coupler_height = height;
 foot_height = height;
 dowel_length = 1000; // mm
 
-dowel_diameter = 20; // mm
+dowel_diameter = 25.4; // mm
 outer_diameter = 35; // mm
 wall_thickness = (outer_diameter-dowel_diameter)/2;
 
-spacing = 25; // mm
+spacing = 30; // mm
 
 outward_angle = 10; // deg
 side_angle = 10; // deg
@@ -36,7 +36,7 @@ $fn = 100;
 
 outer_fn = 9;
 
-part="shelf"; // "connector" | "coupler" | "foot" | "top" | "hook" | "shelf"
+part="connector"; // "connector" | "coupler" | "foot" | "top" | "hook" | "shelf"
 
 module connector() {
   difference() {
