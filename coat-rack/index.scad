@@ -20,6 +20,9 @@ hook_angle = 30; // deg
 top_height = height;
 top_sphere = 70; // mm
 
+shelf_height = height;
+shelf_length = 50; // mm
+
 legs = 3;
 
 screw_diameter = 4;
@@ -30,7 +33,7 @@ $fn = 100;
 
 outer_fn = 9;
 
-part="top"; // "connector" | "coupler" | "foot" | "top" | "hook"
+part="shelf"; // "connector" | "coupler" | "foot" | "top" | "hook" | "shelf"
 
 module connector() {
   difference() {
@@ -119,6 +122,26 @@ module hook() {
   }
 }
 
+module shelf() {
+  difference() {
+    hull() {
+      cylinder(d=outer_diameter, h=shelf_height, center=true, $fn=outer_fn);
+      translate([outer_diameter/2, 0, 0])
+      rotate([0, 90, 0])
+      cylinder(d=hook_diameter, h=shelf_length, $fn=outer_fn);
+    }
+    cylinder(d=dowel_diameter, h=dowel_length, center=true);
+
+    translate([-(dowel_diameter/2) + (screw_head_height/2), 0, 0])
+    rotate([0, -90, 0])
+    screw_hole(center=false);
+
+    rotate([side_angle, 0, 0])
+    translate([outer_diameter/2, -outer_diameter/2, 0])
+    cube([shelf_length, outer_diameter, shelf_height]);
+  }
+}
+
 module screw_hole(center=true) {
   union() {
     cylinder(d=screw_diameter, h=wall_thickness);
@@ -147,3 +170,6 @@ if (part == "hook"){
   hook();
 }
 
+if (part == "shelf"){
+  shelf();
+}
