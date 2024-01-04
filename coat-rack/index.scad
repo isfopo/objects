@@ -1,18 +1,26 @@
-height = 50; // mm
+height = 40; // mm
+dowel_length = 1000; // mm
 
 dowel_diameter = 20; // mm
-outer_diameter = 40; // mm
+outer_diameter = 35; // mm
+wall_thickness = (outer_diameter-dowel_diameter)/2;
 
-spacing = 20; // mm
+spacing = 25; // mm
 
 outward_angle = 10; // deg
 side_angle = 10; // deg
 
 legs = 3;
 
+screw_diameter = 4;
+screw_head_diameter = 8;
+screw_head_height = 8;
+
+$fn = 10;
+
 module coat_rack() {
   difference() {
-    hull()
+    hull() 
     for(i = [0: 360/legs: 360]) {
       rotate([side_angle, outward_angle, i])
       translate([spacing, 0, 0])
@@ -22,7 +30,13 @@ module coat_rack() {
     for(i = [0: 360/legs: 360]) {
       rotate([side_angle, outward_angle, i])
       translate([spacing, 0, 0])
-        cylinder(d=dowel_diameter, h=height+ 100, center=true);  
+      rotate([0, 0, 90])
+        union() {
+          cylinder(d=dowel_diameter, h=dowel_length, center=true, $fn = 20);  
+          rotate([90, 0, 0])
+          translate([0, 0, dowel_diameter/2])
+          cylinder(d=screw_diameter, h=wall_thickness);
+        }
     }
   }
 }
