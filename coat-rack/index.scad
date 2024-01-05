@@ -34,7 +34,7 @@ screw_head_height = 2;
 
 $fn = 100;
 
-outer_fn = 9;
+outer_fn = 7;
 
 part="connector"; // "connector" | "coupler" | "foot" | "top" | "hook" | "shelf"
 
