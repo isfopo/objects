@@ -105,7 +105,7 @@ module top() {
       cylinder(d=hook_diameter, h=hook_length, $fn=outer_fn);
     }
     translate([0, 0, -leg_length])
-    cylinder(d=leg_diameter, h=leg_length);
+    leg(center=false);
 
     translate([-(leg_diameter/2) + (screw_head_height/2), 0, -top_height/4])
     rotate([0, -90, 0])
