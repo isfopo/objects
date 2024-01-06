@@ -1,4 +1,5 @@
 use <../libraries/BOSL/shapes.scad>;
+use <../libraries/BOSL/constants.scad>;
 
 height = 40; // mm
 coupler_height = height;
@@ -40,7 +41,7 @@ $fn = 20;
 
 outer_fn = 11;
 
-part = "coupler"; // "connector" | "coupler" | "foot" | "top" | "hook" | "shelf"
+part = "connector"; // "connector" | "coupler" | "foot" | "top" | "hook" | "shelf"
 
 module connector() {
   difference() {
@@ -85,11 +86,11 @@ module coupler() {
 
 module foot() {
   difference() {
-    union() {
+    %union() {
       sphere(d=outer_diameter, $fn=outer_fn);
       cylinder(d=outer_diameter, h=foot_height, $fn=outer_fn);
     }
-    cylinder(d=leg_diameter, h=foot_height);
+    leg(center=false);
     translate([-(leg_diameter/2) + (screw_head_height/2), 0, foot_height/2])
     rotate([0, -90, 0])
     screw_hole(center=false);
@@ -153,22 +154,22 @@ module shelf() {
   }
 }
 
-module leg() {
+module leg(center=true) {
   if (leg_type == "dowel") {
-    dowel();
+    dowel(center=center);
   }
   
   if (leg_type == "baluster") {
-    baluster();
+    baluster(center=center);
   }
 }
 
-module dowel() {
-  cylinder(d=leg_diameter, h=leg_length, center=true);
+module dowel(center=true) {
+  cylinder(d=leg_diameter, h=leg_length, center=center);
 }
 
-module baluster() {
-  cuboid([leg_diameter, leg_diameter, leg_length], fillet=leg_fillet);
+module baluster(center=true) {
+  cuboid([leg_diameter, leg_diameter, leg_length], fillet=leg_fillet, align=center ? [0,0,0] : [0,0,1]);
 }
 
 module screw_hole(center=true, extend = 0) {
