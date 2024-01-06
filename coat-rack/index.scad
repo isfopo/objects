@@ -40,7 +40,7 @@ $fn = 100;
 
 outer_fn = 7;
 
-part = "connector"; // "connector" | "coupler" | "foot" | "top" | "hook" | "shelf"
+part = "coupler"; // "connector" | "coupler" | "foot" | "top" | "hook" | "shelf"
 
 module connector() {
   difference() {
@@ -75,7 +75,7 @@ module coupler() {
       screw_hole(center=false);
     }
     union() {
-      cylinder(d=leg_diameter, h=coupler_height, center=true);
+      leg();
       translate([0, (leg_diameter/2)- (screw_head_height/2), -coupler_height/4])
       rotate([-90, 0, 0])
       screw_hole(center=false);
