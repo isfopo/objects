@@ -1,5 +1,4 @@
 use <../libraries/BOSL/shapes.scad>;
-use <../libraries/BOSL/constants.scad>;
 
 height = 40; // mm
 coupler_height = height;
@@ -169,7 +168,7 @@ module dowel(center=true) {
 }
 
 module baluster(center=true) {
-  cuboid([leg_diameter, leg_diameter, leg_length], fillet=leg_fillet, align=center ? [0,0,0] : [0,0,1]);
+  cuboid([leg_diameter, leg_diameter, leg_length], fillet=leg_fillet, edges=[[0,0,0,0], [0,0,0,0], [1,1,1,1]], align=center ? [0,0,0] : [0,0,1]);
 }
 
 module screw_hole(center=true, extend = 0) {
