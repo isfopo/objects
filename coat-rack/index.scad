@@ -40,7 +40,7 @@ $fn = 100;
 
 outer_fn = 7;
 
-part="connector"; // "connector" | "coupler" | "foot" | "top" | "hook" | "shelf"
+part = "connector"; // "connector" | "coupler" | "foot" | "top" | "hook" | "shelf"
 
 module connector() {
   difference() {
