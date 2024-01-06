@@ -121,7 +121,7 @@ module hook() {
       rotate([side_angle, hook_angle, 0])
       cylinder(d=hook_diameter, h=hook_length, $fn=outer_fn);
     }
-    cylinder(d=leg_diameter, h=leg_length, center=true);
+    leg();
 
     translate([-(leg_diameter/2) + (screw_head_height/2), 0, 0])
     rotate([0, -90, 0])
