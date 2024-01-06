@@ -36,7 +36,7 @@ screw_diameter = 4;
 screw_head_diameter = 8;
 screw_head_height = 2;
 
-$fn = 100;
+$fn = 20;
 
 outer_fn = 7;
 
