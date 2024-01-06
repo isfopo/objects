@@ -1,10 +1,12 @@
+use <../libraries/BOSL/shapes.scad>;
+
 height = 40; // mm
 coupler_height = height;
 foot_height = height;
 leg_length = 1000; // mm
 
 leg_diameter = 25.4; // mm
-outer_diameter = 35; // mm
+outer_diameter = 40; // mm
 wall_thickness = (outer_diameter-leg_diameter)/2;
 
 spacing = 30; // mm
@@ -27,7 +29,8 @@ shelf_screw_angle = 30; // deg
 shelf_screw_extend = 2.8; // mm
 
 legs = 3;
-leg_type = "dowel" // "dowel" | "baluster"
+leg_type = "baluster"; // "dowel" | "baluster"
+leg_chamfer=5; //mm
 
 screw_diameter = 4;
 screw_head_diameter = 8;
@@ -41,7 +44,7 @@ part="connector"; // "connector" | "coupler" | "foot" | "top" | "hook" | "shelf"
 
 module connector() {
   difference() {
-    hull() 
+    %hull() 
     for(i = [0: 360/legs: 360]) {
       rotate([side_angle, outward_angle, i])
       translate([spacing, 0, 0])
@@ -53,6 +56,7 @@ module connector() {
       translate([spacing, 0, 0])
       rotate([0, 0, 90])
         union() {
+          leg();
           rotate([90, 0, 0])
           translate([0, 0, leg_diameter/2])
           screw_hole();
@@ -147,6 +151,24 @@ module shelf() {
     rotate([180+side_angle, -shelf_screw_angle, 0])
     screw_hole(extend=shelf_screw_extend);
   }
+}
+
+module leg() {
+  if (leg_type == "dowel") {
+    dowel();
+  }
+  
+  if (leg_type == "baluster") {
+    baluster();
+  }
+}
+
+module dowel() {
+  cylinder(d=leg_diameter, h=leg_length, center=true);
+}
+
+module baluster() {
+  cuboid([leg_diameter, leg_diameter, leg_length], chamfer=leg_chamfer);
 }
 
 module screw_hole(center=true, extend = 0) {
