@@ -137,7 +137,7 @@ module shelf() {
       rotate([0, 90, 0])
       cylinder(d=hook_diameter, h=shelf_length, $fn=outer_fn);
     }
-    cylinder(d=leg_diameter, h=leg_length, center=true);
+    leg();
 
     translate([-(leg_diameter/2) + (screw_head_height/2), 0, 0])
     rotate([0, -90, 0])
