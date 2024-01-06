@@ -3,9 +3,9 @@ coupler_height = height;
 foot_height = height;
 dowel_length = 1000; // mm
 
-dowel_diameter = 25.4; // mm
+leg_diameter = 25.4; // mm
 outer_diameter = 35; // mm
-wall_thickness = (outer_diameter-dowel_diameter)/2;
+wall_thickness = (outer_diameter-leg_diameter)/2;
 
 spacing = 30; // mm
 
@@ -52,9 +52,9 @@ module connector() {
       translate([spacing, 0, 0])
       rotate([0, 0, 90])
         union() {
-          cylinder(d=dowel_diameter, h=dowel_length, center=true);  
+          cylinder(d=leg_diameter, h=dowel_length, center=true);  
           rotate([90, 0, 0])
-          translate([0, 0, dowel_diameter/2])
+          translate([0, 0, leg_diameter/2])
           screw_hole();
         }
     }
@@ -65,14 +65,14 @@ module coupler() {
   difference() { 
     cylinder(d=outer_diameter, h=coupler_height, center=true, $fn=outer_fn);
     union() {
-      cylinder(d=dowel_diameter, h=coupler_height, center=true);
-      translate([0, (dowel_diameter/2)- (screw_head_height/2), coupler_height/4])
+      cylinder(d=leg_diameter, h=coupler_height, center=true);
+      translate([0, (leg_diameter/2)- (screw_head_height/2), coupler_height/4])
       rotate([-90, 0, 0])
       screw_hole(center=false);
     }
     union() {
-      cylinder(d=dowel_diameter, h=coupler_height, center=true);
-      translate([0, (dowel_diameter/2)- (screw_head_height/2), -coupler_height/4])
+      cylinder(d=leg_diameter, h=coupler_height, center=true);
+      translate([0, (leg_diameter/2)- (screw_head_height/2), -coupler_height/4])
       rotate([-90, 0, 0])
       screw_hole(center=false);
     }
@@ -85,8 +85,8 @@ module foot() {
       sphere(d=outer_diameter, $fn=outer_fn);
       cylinder(d=outer_diameter, h=foot_height, $fn=outer_fn);
     }
-    cylinder(d=dowel_diameter, h=foot_height);
-    translate([-(dowel_diameter/2) + (screw_head_height/2), 0, foot_height/2])
+    cylinder(d=leg_diameter, h=foot_height);
+    translate([-(leg_diameter/2) + (screw_head_height/2), 0, foot_height/2])
     rotate([0, -90, 0])
     screw_hole(center=false);
   }
@@ -101,9 +101,9 @@ module top() {
       cylinder(d=hook_diameter, h=hook_length, $fn=outer_fn);
     }
     translate([0, 0, -dowel_length])
-    cylinder(d=dowel_diameter, h=dowel_length);
+    cylinder(d=leg_diameter, h=dowel_length);
 
-    translate([-(dowel_diameter/2) + (screw_head_height/2), 0, -top_height/4])
+    translate([-(leg_diameter/2) + (screw_head_height/2), 0, -top_height/4])
     rotate([0, -90, 0])
     screw_hole(center=false);
   }
@@ -117,9 +117,9 @@ module hook() {
       rotate([side_angle, hook_angle, 0])
       cylinder(d=hook_diameter, h=hook_length, $fn=outer_fn);
     }
-    cylinder(d=dowel_diameter, h=dowel_length, center=true);
+    cylinder(d=leg_diameter, h=dowel_length, center=true);
 
-    translate([-(dowel_diameter/2) + (screw_head_height/2), 0, 0])
+    translate([-(leg_diameter/2) + (screw_head_height/2), 0, 0])
     rotate([0, -90, 0])
     screw_hole(center=false);
   }
@@ -133,9 +133,9 @@ module shelf() {
       rotate([0, 90, 0])
       cylinder(d=hook_diameter, h=shelf_length, $fn=outer_fn);
     }
-    cylinder(d=dowel_diameter, h=dowel_length, center=true);
+    cylinder(d=leg_diameter, h=dowel_length, center=true);
 
-    translate([-(dowel_diameter/2) + (screw_head_height/2), 0, 0])
+    translate([-(leg_diameter/2) + (screw_head_height/2), 0, 0])
     rotate([0, -90, 0])
     screw_hole(center=false);
 
