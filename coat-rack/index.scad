@@ -89,7 +89,7 @@ module foot() {
       sphere(d=outer_diameter, $fn=outer_fn);
       cylinder(d=outer_diameter, h=foot_height, $fn=outer_fn);
     }
-    leg(center=false);
+    leg(through=false);
     translate([-(leg_diameter/2) + (screw_head_height/2), 0, foot_height/2])
     rotate([0, -90, 0])
     screw_hole(center=false);
@@ -105,7 +105,7 @@ module top() {
       cylinder(d=hook_diameter, h=hook_length, $fn=outer_fn);
     }
     translate([0, 0, -leg_length])
-    leg(center=false);
+    leg(through=false);
 
     translate([-(leg_diameter/2) + (screw_head_height/2), 0, -top_height/4])
     rotate([0, -90, 0])
@@ -153,22 +153,22 @@ module shelf() {
   }
 }
 
-module leg(center=true) {
+module leg(through=true) {
   if (leg_type == "dowel") {
-    dowel(center=center);
+    dowel(through=through);
   }
   
   if (leg_type == "baluster") {
-    baluster(center=center);
+    baluster(through=through);
   }
 }
 
-module dowel(center=true) {
-  cylinder(d=leg_diameter, h=leg_length, center=center);
+module dowel(through=true) {
+  cylinder(d=leg_diameter, h=leg_length, through=through);
 }
 
-module baluster(center=true) {
-  cuboid([leg_diameter, leg_diameter, leg_length], fillet=leg_fillet, edges=[[0,0,0,0], [0,0,0,0], [1,1,1,1]], align=center ? [0,0,0] : [0,0,1]);
+module baluster(through=true) {
+  cuboid([leg_diameter, leg_diameter, leg_length], fillet=leg_fillet, edges=[[0,0,0,0], [0,0,0,0], [1,1,1,1]], align=through ? [0,0,0] : [0,0,1]);
 }
 
 module screw_hole(center=true, extend = 0) {
