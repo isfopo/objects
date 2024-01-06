@@ -85,7 +85,7 @@ module coupler() {
 
 module foot() {
   difference() {
-    %union() {
+    hull() {
       sphere(d=outer_diameter, $fn=outer_fn);
       cylinder(d=outer_diameter, h=foot_height, $fn=outer_fn);
     }
