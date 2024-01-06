@@ -38,7 +38,7 @@ screw_head_height = 2;
 
 $fn = 20;
 
-outer_fn = 7;
+outer_fn = 11;
 
 part = "coupler"; // "connector" | "coupler" | "foot" | "top" | "hook" | "shelf"
 
@@ -68,16 +68,16 @@ module connector() {
 module coupler() {
   difference() { 
     cylinder(d=outer_diameter, h=coupler_height, center=true, $fn=outer_fn);
-    union() {
-      cylinder(d=leg_diameter, h=coupler_height, center=true);
-      translate([0, (leg_diameter/2)- (screw_head_height/2), coupler_height/4])
-      rotate([-90, 0, 0])
-      screw_hole(center=false);
-    }
+
     union() {
       leg();
-      translate([0, (leg_diameter/2)- (screw_head_height/2), -coupler_height/4])
-      rotate([-90, 0, 0])
+
+      translate([-(leg_diameter/2) + (screw_head_height/2), 0, coupler_height/4])
+      rotate([0, -90, 0])
+      screw_hole(center=false);
+
+      translate([-(leg_diameter/2) + (screw_head_height/2), 0, -coupler_height/4])
+      rotate([0, -90, 0])
       screw_hole(center=false);
     }
   }
