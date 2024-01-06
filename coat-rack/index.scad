@@ -27,6 +27,7 @@ shelf_screw_angle = 30; // deg
 shelf_screw_extend = 2.8; // mm
 
 legs = 3;
+leg_type = "dowel" // "dowel" | "baluster"
 
 screw_diameter = 4;
 screw_head_diameter = 8;
