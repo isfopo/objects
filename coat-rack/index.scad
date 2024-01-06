@@ -30,7 +30,7 @@ shelf_screw_extend = 2.8; // mm
 
 legs = 3;
 leg_type = "baluster"; // "dowel" | "baluster"
-leg_chamfer=5; //mm
+leg_fillet=5; //mm
 
 screw_diameter = 4;
 screw_head_diameter = 8;
@@ -44,7 +44,7 @@ part="connector"; // "connector" | "coupler" | "foot" | "top" | "hook" | "shelf"
 
 module connector() {
   difference() {
-    %hull() 
+    hull() 
     for(i = [0: 360/legs: 360]) {
       rotate([side_angle, outward_angle, i])
       translate([spacing, 0, 0])
@@ -168,7 +168,7 @@ module dowel() {
 }
 
 module baluster() {
-  cuboid([leg_diameter, leg_diameter, leg_length], chamfer=leg_chamfer);
+  cuboid([leg_diameter, leg_diameter, leg_length], fillet=leg_fillet);
 }
 
 module screw_hole(center=true, extend = 0) {
