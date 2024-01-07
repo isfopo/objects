@@ -1,19 +1,18 @@
 use <../libraries/BOSL/shapes.scad>;
 
-height = 40; // mm
-coupler_height = height;
-foot_height = height;
+height = 50; // mm
 leg_length = 1000; // mm
 
-leg_diameter = 25.4; // mm
-outer_diameter = 40; // mm
+leg_diameter = 38.1; // mm
+outer_diameter = 65; // mm
 wall_thickness = (outer_diameter-leg_diameter)/2;
 
-spacing = 30; // mm
+spacing = 40; // mm
 
 outward_angle = 10; // deg
 side_angle = 16; // deg
 
+coupler_height = height;
 hook_height = 30;
 hook_diameter = 10; // mm
 hook_length = 70; // mm
@@ -21,6 +20,8 @@ hook_angle = 30; // deg
 
 top_height = height;
 top_sphere = 70; // mm
+
+foot_height = height;
 
 shelf_height = height;
 shelf_length = 30; // mm
