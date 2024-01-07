@@ -29,7 +29,7 @@ part = "foot"; // "bracket" | "foot"
 
 $fn = 20;
 
-outer_fn = low_poly ? 8 : $fn;
+outer_fn = low_poly ? 7 : $fn;
 
 module bracket() {
   module leg() {
@@ -81,10 +81,9 @@ module bracket() {
 module foot() {
   difference() {
     union() {
-
       linear_extrude(height=height) {
         difference() {
-          offset(r = wall_thickness) {
+          offset(r = wall_thickness, $fn=outer_fn) {
             square(leg_diameter, center = true);
           }
           offset() {
@@ -94,7 +93,7 @@ module foot() {
       }
       mirror([0,0,1])
       linear_extrude(height=base_height) {
-        offset(r = wall_thickness) {
+        offset(r = wall_thickness, $fn=outer_fn) {
           square(leg_diameter, center = true);
         }
       }
