@@ -1,3 +1,5 @@
+use <../libraries/BOSL/shapes.scad>;
+
 low_poly = true;
 
 height = 50; // mm
@@ -7,6 +9,8 @@ leg_length = 100; // mm
 leg_diameter = 38.1; // mm
 outer_diameter = 50; // mm
 wall_thickness = (outer_diameter-leg_diameter)/2;
+
+foot_height = height;
 
 spacing = 120; // mm
 
@@ -21,9 +25,9 @@ screw_inset = low_poly ? 1.9 : 0; // mm
 leg_type = "baluster"; // "dowel" | "baluster"
 leg_fillet=5; //mm
 
-part = "bracket"; // "bracket" | "foot"
+part = "foot"; // "bracket" | "foot"
 
-$fn = 8;
+$fn = 20;
 
 outer_fn = low_poly ? 8 : $fn;
 
@@ -74,6 +78,33 @@ module bracket() {
   }
 }
 
+module foot() {
+  difference() {
+    union() {
+
+      linear_extrude(height=height) {
+        difference() {
+          offset(r = wall_thickness) {
+            square(leg_diameter, center = true);
+          }
+          offset() {
+            square(leg_diameter, center = true);
+          }
+        }
+      }
+      mirror([0,0,1])
+      linear_extrude(height=base_height) {
+        offset(r = wall_thickness) {
+          square(leg_diameter, center = true);
+        }
+      }
+    }
+
+    translate([(leg_diameter/2), 0, foot_height/2])
+    rotate([0, 90, 0])
+    screw_hole();
+  }
+}
 
 module leg(through=true) {
   if (leg_type == "dowel") {
