@@ -15,6 +15,8 @@ outward_angle = 10; // deg
 side_angle = 16; // deg
 
 coupler_height = height;
+connector_height = height; // mm
+
 coupler_has_hook = true;
 
 hook_height = 30;
@@ -55,7 +57,7 @@ module connector() {
     for(i = [0: 360/legs: 360]) {
       rotate([side_angle, outward_angle, i])
       translate([spacing, 0, 0])
-        cylinder(d=outer_diameter, h=height, center=true, $fn=outer_fn);
+        cylinder(d=outer_diameter, h=connector_height, center=true, $fn=outer_fn);
     }
     
     for(i = [0: 360/legs: 360]) {
