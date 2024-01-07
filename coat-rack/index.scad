@@ -198,6 +198,9 @@ module screw_hole(center=true, extend = 0, screw_inset = 0) {
   }
 }
 
+module index(part = part) {
+
+
 if (part == "connector"){
   connector();
 } 
@@ -221,3 +224,6 @@ if (part == "hook"){
 if (part == "shelf"){
   shelf();
 }
+}
+
+index();
