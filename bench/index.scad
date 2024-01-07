@@ -1,16 +1,17 @@
 low_poly = true;
 
 height = 50; // mm
-leg_length = 1000; // mm
+base_height = 10;
+leg_length = 100; // mm
 
 leg_diameter = 38.1; // mm
-outer_diameter = 65; // mm
+outer_diameter = 50; // mm
 wall_thickness = (outer_diameter-leg_diameter)/2;
 
-spacing = 40; // mm
+spacing = 120; // mm
 
 outward_angle = 10; // deg
-side_angle = 16; // deg
+side_angle = 6; // deg
 
 screw_diameter = 4; // mm
 screw_head_diameter = 8; // mm
@@ -20,8 +21,72 @@ screw_inset = low_poly ? 1.9 : 0; // mm
 leg_type = "baluster"; // "dowel" | "baluster"
 leg_fillet=5; //mm
 
-module index() {
+part = "bracket"; // "bracket" | "foot"
 
+$fn = 20;
+
+outer_fn = low_poly ? 8 : $fn;
+
+module bracket() {
+  module leg() {
+      translate([ spacing/2, 0, 0])
+      rotate([side_angle, outward_angle, 0])
+      linear_extrude() {
+        difference() {
+          offset(r = wall_thickness) {
+            square(leg_diameter, center = true);
+          }
+          offset() {
+            square(leg_diameter, center = true);
+          }
+        }
+      }
+  }
+
+  union() {
+    leg();
+
+    mirror([1,0,0])
+    leg();
+  }
+}
+
+
+module leg(through=true) {
+  if (leg_type == "dowel") {
+    dowel(through=through);
+  }
+  
+  if (leg_type == "baluster") {
+    baluster(through=through);
+  }
+}
+
+module dowel(through=true) {
+  cylinder(d=leg_diameter, h=leg_length, through=through);
+}
+
+module baluster(through=true) {
+  cuboid([leg_diameter, leg_diameter, leg_length], fillet=leg_fillet, edges=[[0,0,0,0], [0,0,0,0], [1,1,1,1]], align=through ? [0,0,0] : [0,0,1]);
+}
+
+module screw_hole(center=true, extend = 0, screw_inset = 0) {
+  total_height = wall_thickness + extend - screw_inset;
+  union() {
+    cylinder(d=screw_diameter, h=total_height);
+    translate([0, 0, total_height - (screw_head_height/2)])
+    cylinder(d1=screw_diameter, d2=screw_head_diameter, h=screw_head_height, center=center);
+  }
+}
+
+module index(part = part) {
+  if (part == "bracket"){
+    bracket();
+  } 
+
+  if (part == "foot"){
+    foot();
+  }
 }
 
 index();
