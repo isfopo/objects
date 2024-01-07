@@ -35,9 +35,10 @@ legs = 3;
 leg_type = "baluster"; // "dowel" | "baluster"
 leg_fillet=5; //mm
 
-screw_diameter = 4;
-screw_head_diameter = 8;
-screw_head_height = 2;
+screw_diameter = 4; // mm
+screw_head_diameter = 8; // mm
+screw_head_height = 2; // mm
+screw_inset = 1.9; // mm
 
 $fn = 20;
 
@@ -184,7 +185,7 @@ module baluster(through=true) {
 }
 
 module screw_hole(center=true, extend = 0) {
-  total_height = wall_thickness + extend;
+  total_height = wall_thickness + extend - screw_inset;
   union() {
     cylinder(d=screw_diameter, h=total_height);
     translate([0, 0, total_height - (screw_head_height/2)])
