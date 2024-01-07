@@ -14,9 +14,9 @@ spacing = 40; // mm
 outward_angle = 10; // deg
 side_angle = 16; // deg
 
-coupler_height = height;
 connector_height = height; // mm
 
+coupler_height = height; // mm
 coupler_has_hook = true;
 
 hook_height = 30;
@@ -24,12 +24,12 @@ hook_diameter = 10; // mm
 hook_length = 70; // mm
 hook_angle = 30; // deg
 
-top_height = height;
+top_height = height; // mm
 top_sphere = 70; // mm
 
-foot_height = height;
+foot_height = height; // mm
 
-shelf_height = height;
+shelf_height = height; // mm
 shelf_length = 30; // mm
 shelf_screw_inset = 10; // mm
 shelf_screw_angle = 36; // deg
@@ -49,7 +49,7 @@ $fn = 20;
 
 outer_fn = low_poly ? 9 : $fn;
 
-part = "shelf"; // "connector" | "coupler" | "foot" | "top" | "hook" | "shelf"
+part = "connector"; // "connector" | "coupler" | "foot" | "top" | "hook" | "shelf"
 
 module connector() {
   difference() {
