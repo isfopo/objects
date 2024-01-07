@@ -44,7 +44,7 @@ $fn = 20;
 
 outer_fn = 9;
 
-part = "coupler"; // "connector" | "coupler" | "foot" | "top" | "hook" | "shelf"
+part = "shelf"; // "connector" | "coupler" | "foot" | "top" | "hook" | "shelf"
 
 module connector() {
   difference() {
@@ -87,11 +87,11 @@ module coupler(has_hook = false) {
 
       translate([-(leg_diameter/2) + (screw_head_height/2), 0, coupler_height/4])
       rotate([0, -90, 0])
-      screw_hole(center=false);
+      screw_hole(center=false, screw_inset=screw_inset);
 
       translate([-(leg_diameter/2) + (screw_head_height/2), 0, -coupler_height/4])
       rotate([0, -90, 0])
-      screw_hole(center=false);
+      screw_hole(center=false, screw_inset=screw_inset);
     }
   }
 }
@@ -105,7 +105,7 @@ module foot() {
     leg(through=false);
     translate([-(leg_diameter/2) + (screw_head_height/2), 0, foot_height/2])
     rotate([0, -90, 0])
-    screw_hole(center=false);
+    screw_hole(center=false, screw_inset=screw_inset);
   }
 }
 
@@ -122,7 +122,7 @@ module top() {
 
     translate([-(leg_diameter/2) + (screw_head_height/2), 0, -top_height/4])
     rotate([0, -90, 0])
-    screw_hole(center=false);
+    screw_hole(center=false, screw_inset=screw_inset);
   }
 }
 
@@ -138,7 +138,7 @@ module hook() {
 
     translate([-(leg_diameter/2) + (screw_head_height/2), 0, 0])
     rotate([0, -90, 0])
-    screw_hole(center=false);
+    screw_hole(center=false, screw_inset=screw_inset);
   }
 }
 
@@ -154,7 +154,7 @@ module shelf() {
 
     translate([-(leg_diameter/2) + (screw_head_height/2), 0, 0])
     rotate([0, -90, 0])
-    screw_hole(center=false);
+    screw_hole(center=false, screw_inset=screw_inset);
 
     rotate([side_angle, 0, 0])
     translate([outer_diameter/2, -outer_diameter/2, 0])
@@ -162,7 +162,7 @@ module shelf() {
 
     translate([(shelf_length + (outer_diameter/2)) - shelf_screw_inset, 0, shelf_screw_extend/2])
     rotate([180+side_angle, -shelf_screw_angle, 0])
-    screw_hole(extend=shelf_screw_extend);
+    screw_hole(extend=shelf_screw_extend, screw_inset=screw_inset);
   }
 }
 
@@ -184,7 +184,7 @@ module baluster(through=true) {
   cuboid([leg_diameter, leg_diameter, leg_length], fillet=leg_fillet, edges=[[0,0,0,0], [0,0,0,0], [1,1,1,1]], align=through ? [0,0,0] : [0,0,1]);
 }
 
-module screw_hole(center=true, extend = 0) {
+module screw_hole(center=true, extend = 0, screw_inset = 0) {
   total_height = wall_thickness + extend - screw_inset;
   union() {
     cylinder(d=screw_diameter, h=total_height);
