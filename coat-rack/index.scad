@@ -199,31 +199,29 @@ module screw_hole(center=true, extend = 0, screw_inset = 0) {
 }
 
 module index(part = part) {
+  if (part == "connector"){
+    connector();
+  } 
 
+  if (part == "coupler"){
+    coupler(has_hook=coupler_has_hook);
+  }
 
-if (part == "connector"){
-  connector();
-} 
+  if (part == "foot"){
+    foot();
+  }
 
-if (part == "coupler"){
-  coupler(has_hook=coupler_has_hook);
-}
+  if (part == "top"){
+    top();
+  }
 
-if (part == "foot"){
-  foot();
-}
+  if (part == "hook"){
+    hook();
+  }
 
-if (part == "top"){
-  top();
-}
-
-if (part == "hook"){
-  hook();
-}
-
-if (part == "shelf"){
-  shelf();
-}
+  if (part == "shelf"){
+    shelf();
+  }
 }
 
 index();
