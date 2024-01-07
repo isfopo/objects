@@ -11,7 +11,7 @@ wall_thickness = (outer_diameter-leg_diameter)/2;
 spacing = 120; // mm
 
 outward_angle = 10; // deg
-side_angle = 6; // deg
+side_angle = 0; // deg
 
 screw_diameter = 4; // mm
 screw_head_diameter = 8; // mm
@@ -23,7 +23,7 @@ leg_fillet=5; //mm
 
 part = "bracket"; // "bracket" | "foot"
 
-$fn = 20;
+$fn = 8;
 
 outer_fn = low_poly ? 8 : $fn;
 
@@ -31,7 +31,7 @@ module bracket() {
   module leg() {
       translate([ spacing/2, 0, 0])
       rotate([side_angle, outward_angle, 0])
-      linear_extrude() {
+      linear_extrude(height=height) {
         difference() {
           offset(r = wall_thickness) {
             square(leg_diameter, center = true);
@@ -43,7 +43,30 @@ module bracket() {
       }
   }
 
+  module base() {
+    module side() {
+      translate([ spacing/2, 0, 0])
+      rotate([0, outward_angle, 0])
+      linear_extrude(height=base_height) {
+        offset(r = wall_thickness) {
+          square(leg_diameter, center = true);
+        }
+
+      }
+    }
+
+    hull() {
+      side();
+      mirror([1, 0, 0]) {
+        side();
+      }
+      
+    }
+  }
+
   union() {
+
+    base();
     leg();
 
     mirror([1,0,0])
