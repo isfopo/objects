@@ -1,5 +1,7 @@
 use <../libraries/BOSL/shapes.scad>;
 
+low_poly = true;
+
 height = 50; // mm
 leg_length = 1000; // mm
 
@@ -39,11 +41,11 @@ leg_fillet=5; //mm
 screw_diameter = 4; // mm
 screw_head_diameter = 8; // mm
 screw_head_height = 2; // mm
-screw_inset = 1.9; // mm
+screw_inset = low_poly ? 1.9 : 0; // mm
 
 $fn = 20;
 
-outer_fn = 9;
+outer_fn = low_poly ? 9 : $fn;
 
 part = "shelf"; // "connector" | "coupler" | "foot" | "top" | "hook" | "shelf"
 
