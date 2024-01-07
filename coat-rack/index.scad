@@ -13,6 +13,8 @@ outward_angle = 10; // deg
 side_angle = 16; // deg
 
 coupler_height = height;
+coupler_has_hook = true;
+
 hook_height = 30;
 hook_diameter = 10; // mm
 hook_length = 70; // mm
@@ -41,7 +43,7 @@ $fn = 20;
 
 outer_fn = 9;
 
-part = "connector"; // "connector" | "coupler" | "foot" | "top" | "hook" | "shelf"
+part = "coupler"; // "connector" | "coupler" | "foot" | "top" | "hook" | "shelf"
 
 module connector() {
   difference() {
@@ -66,9 +68,18 @@ module connector() {
   }
 }
 
-module coupler() {
-  difference() { 
-    cylinder(d=outer_diameter, h=coupler_height, center=true, $fn=outer_fn);
+module coupler(has_hook = false) {
+  difference() {
+    if (has_hook) {
+      hull() {
+        cylinder(d=outer_diameter, h=coupler_height, center=true, $fn=outer_fn);
+        translate([outer_diameter/2, 0, 0])
+        rotate([side_angle, hook_angle, 0])
+        cylinder(d=hook_diameter, h=hook_length, $fn=outer_fn);
+      }
+    } else {
+      cylinder(d=outer_diameter, h=coupler_height, center=true, $fn=outer_fn);
+    }
 
     union() {
       leg();
@@ -186,7 +197,7 @@ if (part == "connector"){
 } 
 
 if (part == "coupler"){
-  coupler();
+  coupler(has_hook=coupler_has_hook);
 }
 
 if (part == "foot"){
