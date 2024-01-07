@@ -28,8 +28,9 @@ foot_height = height;
 shelf_height = height;
 shelf_length = 30; // mm
 shelf_screw_inset = 10; // mm
-shelf_screw_angle = 30; // deg
+shelf_screw_angle = 36; // deg
 shelf_screw_extend = 2.8; // mm
+shelft_screw_inset = 5.6; // mm
 
 legs = 3;
 leg_type = "baluster"; // "dowel" | "baluster"
@@ -162,7 +163,7 @@ module shelf() {
 
     translate([(shelf_length + (outer_diameter/2)) - shelf_screw_inset, 0, shelf_screw_extend/2])
     rotate([180+side_angle, -shelf_screw_angle, 0])
-    screw_hole(extend=shelf_screw_extend, screw_inset=screw_inset);
+    screw_hole(extend=shelf_screw_extend, screw_inset=shelft_screw_inset);
   }
 }
 
