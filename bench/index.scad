@@ -2,11 +2,11 @@ use <../libraries/BOSL/shapes.scad>;
 
 low_poly = true;
 
-height = 50; // mm
+height = 40; // mm
 base_height = 10;
 leg_length = 100; // mm
 
-leg_diameter = 38.1; // mm
+leg_diameter = 39; // mm
 outer_diameter = 50; // mm
 wall_thickness = (outer_diameter-leg_diameter)/2;
 
