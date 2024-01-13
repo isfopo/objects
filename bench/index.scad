@@ -64,6 +64,13 @@ module bracket() {
       }
     }
 
+    module base_screw_hole() {
+      extend = 10;
+      translate([spacing/2, 0, base_height-(wall_thickness + extend)])
+      rotate([0, outward_angle, 0])
+      screw_hole(extend=extend);
+    }
+
     difference() {
       hull() {
         side();
@@ -71,11 +78,9 @@ module bracket() {
           side();
         } 
       }
-
-      extend = 10;
-      translate([spacing/2, 0, base_height-(wall_thickness + extend)])
-      rotate([0, outward_angle, 0])
-      screw_hole(extend=extend);
+      base_screw_hole();
+      mirror([1,0,0])
+      base_screw_hole();
     }
   }
 
