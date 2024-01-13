@@ -2,8 +2,8 @@ use <../libraries/BOSL/shapes.scad>;
 
 low_poly = true;
 
-height = 40; // mm
-base_height = 10;
+height = 50; // mm
+base_height = 8; // mm
 leg_length = 100; // mm
 
 leg_diameter = 39; // mm
@@ -12,9 +12,9 @@ wall_thickness = (outer_diameter-leg_diameter)/2;
 
 foot_height = height;
 
-spacing = 120; // mm
+spacing = 150; // mm
 
-outward_angle = 10; // deg
+outward_angle = 12; // deg
 side_angle = 0; // deg
 
 screw_diameter = 4; // mm
@@ -27,9 +27,9 @@ leg_fillet=5; //mm
 
 part = "bracket"; // "bracket" | "foot"
 
-$fn = 20;
+$fn = 5;
 
-outer_fn = low_poly ? 7 : $fn;
+screw_fn = 20;
 
 module bracket() {
   module leg() {
@@ -101,7 +101,7 @@ module foot() {
     union() {
       linear_extrude(height=height) {
         difference() {
-          offset(r = wall_thickness, $fn=outer_fn) {
+          offset(r = wall_thickness) {
             square(leg_diameter, center = true);
           }
           offset() {
@@ -111,7 +111,7 @@ module foot() {
       }
       mirror([0,0,1])
       linear_extrude(height=base_height) {
-        offset(r = wall_thickness, $fn=outer_fn) {
+        offset(r = wall_thickness) {
           square(leg_diameter, center = true);
         }
       }
@@ -144,9 +144,9 @@ module baluster(through=true) {
 module screw_hole(center=true, extend = 0, screw_inset = 0) {
   total_height = wall_thickness + extend - screw_inset;
   union() {
-    cylinder(d=screw_diameter, h=total_height);
+    cylinder(d=screw_diameter, h=total_height, $fn=screw_fn);
     translate([0, 0, total_height - (screw_head_height/2)])
-    cylinder(d1=screw_diameter, d2=screw_head_diameter, h=screw_head_height, center=center);
+    cylinder(d1=screw_diameter, d2=screw_head_diameter, h=screw_head_height, center=center, $fn=screw_fn);
   }
 }
 
