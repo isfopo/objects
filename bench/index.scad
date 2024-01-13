@@ -25,7 +25,7 @@ screw_inset = low_poly ? 1.9 : 0; // mm
 leg_type = "baluster"; // "dowel" | "baluster"
 leg_fillet=5; //mm
 
-part = "foot"; // "bracket" | "foot"
+part = "bracket"; // "bracket" | "foot"
 
 $fn = 20;
 
@@ -35,6 +35,8 @@ module bracket() {
   module leg() {
       translate([ spacing/2, 0, 0])
       rotate([side_angle, outward_angle, 0])
+      difference() {
+
       linear_extrude(height=height) {
         difference() {
           offset(r = wall_thickness) {
@@ -44,6 +46,10 @@ module bracket() {
             square(leg_diameter, center = true);
           }
         }
+      }
+        translate([(leg_diameter/2), 0, (height+base_height)/2])
+        rotate([0, 90, 0])
+        screw_hole();
       }
   }
 
