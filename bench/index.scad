@@ -3,7 +3,7 @@ use <../libraries/BOSL/shapes.scad>;
 low_poly = true;
 
 height = 50; // mm
-base_height = 8; // mm
+base_height = 4; // mm
 leg_length = 100; // mm
 
 leg_diameter = 39; // mm
@@ -14,15 +14,15 @@ foot_height = height;
 
 spacing = 150; // mm
 
-outward_angle = 12; // deg
-side_angle = 0; // deg
+outward_angle = 8; // deg
+side_angle = 8; // deg
 
 screw_diameter = 4; // mm
 screw_head_diameter = 8; // mm
 screw_head_height = 2; // mm
 screw_inset = low_poly ? 1.9 : 0; // mm
 
-leg_type = "baluster"; // "dowel" | "baluster"
+leg_type = "dowel"; // "dowel" | "baluster"
 leg_fillet=5; //mm
 
 part = "bracket"; // "bracket" | "foot"
@@ -56,7 +56,7 @@ module bracket() {
   module base() {
     module side() {
       translate([ spacing/2, 0, 0])
-      rotate([0, outward_angle, 0])
+      rotate([side_angle, outward_angle, 0])
       linear_extrude(height=base_height) {
         offset(r = wall_thickness) {
           square(leg_diameter, center = true);
@@ -65,9 +65,9 @@ module bracket() {
     }
 
     module base_screw_hole() {
-      extend = 10;
+      extend = 15;
       translate([spacing/2, 0, base_height-(wall_thickness + extend)])
-      rotate([0, outward_angle, 0])
+      rotate([side_angle, outward_angle, 0])
       screw_hole(extend=extend);
     }
 
@@ -77,8 +77,8 @@ module bracket() {
         mirror([1, 0, 0]) {
           side();
         }
-        translate([-(spacing + leg_diameter)/2, -(leg_diameter/2 + wall_thickness), -(((leg_diameter/2+wall_thickness)) * sin(outward_angle)) ])
-        cube([spacing + leg_diameter, leg_diameter + wall_thickness*2, base_height]);
+        translate([0, 0, -(((leg_diameter/2+wall_thickness)) * sin(outward_angle) + (leg_diameter/2+wall_thickness) * sin(side_angle)) ])
+        cuboid([spacing + leg_diameter + wall_thickness, leg_diameter + wall_thickness*2, base_height], fillet=wall_thickness, edges=[[0,0,0,0], [0,0,0,0], [1,1,1,1]]);
       }
       base_screw_hole();
       mirror([1,0,0])
