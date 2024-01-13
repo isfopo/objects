@@ -76,7 +76,9 @@ module bracket() {
         side();
         mirror([1, 0, 0]) {
           side();
-        } 
+        }
+        translate([-(spacing + leg_diameter)/2, -(leg_diameter/2 + wall_thickness), -(((leg_diameter/2+wall_thickness)) * sin(outward_angle)) ])
+        cube([spacing + leg_diameter, leg_diameter + wall_thickness*2, base_height]);
       }
       base_screw_hole();
       mirror([1,0,0])
