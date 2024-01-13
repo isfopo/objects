@@ -61,16 +61,21 @@ module bracket() {
         offset(r = wall_thickness) {
           square(leg_diameter, center = true);
         }
-
       }
     }
 
-    hull() {
-      side();
-      mirror([1, 0, 0]) {
+    difference() {
+      hull() {
         side();
+        mirror([1, 0, 0]) {
+          side();
+        } 
       }
-      
+
+      extend = 10;
+      translate([spacing/2, 0, base_height-(wall_thickness + extend)])
+      rotate([0, outward_angle, 0])
+      screw_hole(extend=extend);
     }
   }
 
