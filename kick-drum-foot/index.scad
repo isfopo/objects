@@ -26,7 +26,8 @@ module kick_drum_foot()
 	}
 }
 
-module body() {
+module body()
+{
 	union()
 	{
 		cylinder(d1 = top_diamater, d2 = bottom_diamater, h = top_height);
@@ -35,15 +36,17 @@ module body() {
 	}
 }
 
-module threads() {
-	union(){
+module threads()
+{
+	union()
+	{
 		// leg threading
 		translate([ 0, 0, (leg_screw_depth / 2) + .1 ])
 		threaded_rod(d = leg_thread_diameter, l = leg_screw_depth + .2, pitch = leg_pitch);
 
 		// peg threading
-		translate([ 0, 0, (leg_screw_depth ) + (peg_screw_depth/2) + .1 ])
-		rotate([0, 180, 0])
+		translate([ 0, 0, (leg_screw_depth) + (peg_screw_depth / 2) + .1 ])
+		rotate([ 0, 180, 0 ])
 		threaded_rod(d = peg_thread_diameter, l = peg_screw_depth + .2, pitch = peg_pitch);
 	}
 }

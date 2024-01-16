@@ -2,17 +2,17 @@ use <../libraries/BOSL/shapes.scad>;
 
 low_poly = true;
 
-height = 50; // mm
+height = 50;       // mm
 leg_length = 1000; // mm
 
 leg_diameter = 38.1; // mm
 outer_diameter = 65; // mm
-wall_thickness = (outer_diameter-leg_diameter)/2;
+wall_thickness = (outer_diameter - leg_diameter) / 2;
 
 spacing = 40; // mm
 
 outward_angle = 10; // deg
-side_angle = 16; // deg
+side_angle = 16;    // deg
 
 connector_height = height; // mm
 
@@ -21,28 +21,28 @@ coupler_has_hook = true;
 
 hook_height = 30;
 hook_diameter = 10; // mm
-hook_length = 70; // mm
-hook_angle = 30; // deg
+hook_length = 70;   // mm
+hook_angle = 30;    // deg
 
 top_height = height; // mm
-top_sphere = 70; // mm
+top_sphere = 70;     // mm
 
 foot_height = height; // mm
 
-shelf_height = height; // mm
-shelf_length = 30; // mm
-shelf_screw_inset = 10; // mm
-shelf_screw_angle = 36; // deg
+shelf_height = height;    // mm
+shelf_length = 30;        // mm
+shelf_screw_inset = 10;   // mm
+shelf_screw_angle = 36;   // deg
 shelf_screw_extend = 2.8; // mm
 shelft_screw_inset = 5.6; // mm
 
 legs = 3;
 leg_type = "baluster"; // "dowel" | "baluster"
-leg_fillet=5; //mm
+leg_fillet = 5;        // mm
 
-screw_diameter = 4; // mm
-screw_head_diameter = 8; // mm
-screw_head_height = 2; // mm
+screw_diameter = 4;               // mm
+screw_head_diameter = 8;          // mm
+screw_head_height = 2;            // mm
 screw_inset = low_poly ? 1.9 : 0; // mm
 
 $fn = 20;
@@ -51,177 +51,215 @@ outer_fn = low_poly ? 9 : $fn;
 
 part = "connector"; // "connector" | "coupler" | "foot" | "top" | "hook" | "shelf"
 
-module connector() {
-  difference() {
-    hull() 
-    for(i = [0: 360/legs: 360]) {
-      rotate([side_angle, outward_angle, i])
-      translate([spacing, 0, 0])
-        cylinder(d=outer_diameter, h=connector_height, center=true, $fn=outer_fn);
-    }
-    
-    for(i = [0: 360/legs: 360]) {
-      rotate([side_angle, outward_angle, i])
-      translate([spacing, 0, 0])
-      rotate([0, 0, 90])
-        union() {
-          leg();
-          rotate([90, 0, 0])
-          translate([0, 0, leg_diameter/2])
-          screw_hole();
-        }
-    }
-  }
+module connector()
+{
+	difference()
+	{
+		hull() for (i = [0:360 / legs:360])
+		{
+			rotate([ side_angle, outward_angle, i ])
+			translate([ spacing, 0, 0 ])
+			cylinder(d = outer_diameter, h = connector_height, center = true, $fn = outer_fn);
+		}
+
+		for (i = [0:360 / legs:360])
+		{
+			rotate([ side_angle, outward_angle, i ])
+			translate([ spacing, 0, 0 ])
+			rotate([ 0, 0, 90 ])
+			union()
+			{
+				leg();
+				rotate([ 90, 0, 0 ])
+				translate([ 0, 0, leg_diameter / 2 ])
+				screw_hole();
+			}
+		}
+	}
 }
 
-module coupler(has_hook = false) {
-  difference() {
-    if (has_hook) {
-      hull() {
-        cylinder(d=outer_diameter, h=coupler_height, center=true, $fn=outer_fn);
-        translate([outer_diameter/2, 0, 0])
-        rotate([side_angle, hook_angle, 0])
-        cylinder(d=hook_diameter, h=hook_length, $fn=outer_fn);
-      }
-    } else {
-      cylinder(d=outer_diameter, h=coupler_height, center=true, $fn=outer_fn);
-    }
+module coupler(has_hook = false)
+{
+	difference()
+	{
+		if (has_hook)
+		{
+			hull()
+			{
+				cylinder(d = outer_diameter, h = coupler_height, center = true, $fn = outer_fn);
+				translate([ outer_diameter / 2, 0, 0 ])
+				rotate([ side_angle, hook_angle, 0 ])
+				cylinder(d = hook_diameter, h = hook_length, $fn = outer_fn);
+			}
+		}
+		else
+		{
+			cylinder(d = outer_diameter, h = coupler_height, center = true, $fn = outer_fn);
+		}
 
-    union() {
-      leg();
+		union()
+		{
+			leg();
 
-      translate([-(leg_diameter/2) + (screw_head_height/2), 0, coupler_height/4])
-      rotate([0, -90, 0])
-      screw_hole(center=false, screw_inset=screw_inset);
+			translate([ -(leg_diameter / 2) + (screw_head_height / 2), 0, coupler_height / 4 ])
+			rotate([ 0, -90, 0 ])
+			screw_hole(center = false, screw_inset = screw_inset);
 
-      translate([-(leg_diameter/2) + (screw_head_height/2), 0, -coupler_height/4])
-      rotate([0, -90, 0])
-      screw_hole(center=false, screw_inset=screw_inset);
-    }
-  }
+			translate([ -(leg_diameter / 2) + (screw_head_height / 2), 0, -coupler_height / 4 ])
+			rotate([ 0, -90, 0 ])
+			screw_hole(center = false, screw_inset = screw_inset);
+		}
+	}
 }
 
-module foot() {
-  difference() {
-    hull() {
-      sphere(d=outer_diameter, $fn=outer_fn);
-      cylinder(d=outer_diameter, h=foot_height, $fn=outer_fn);
-    }
-    leg(through=false);
-    translate([-(leg_diameter/2) + (screw_head_height/2), 0, foot_height/2])
-    rotate([0, -90, 0])
-    screw_hole(center=false, screw_inset=screw_inset);
-  }
+module foot()
+{
+	difference()
+	{
+		hull()
+		{
+			sphere(d = outer_diameter, $fn = outer_fn);
+			cylinder(d = outer_diameter, h = foot_height, $fn = outer_fn);
+		}
+		leg(through = false);
+		translate([ -(leg_diameter / 2) + (screw_head_height / 2), 0, foot_height / 2 ])
+		rotate([ 0, -90, 0 ])
+		screw_hole(center = false, screw_inset = screw_inset);
+	}
 }
 
-module top() {
-  difference() {
-    hull() {
-      cylinder(d=outer_diameter, h=top_height, center=true, $fn=outer_fn);
-      translate([outer_diameter/2, 0, 0])
-      rotate([side_angle, hook_angle, 0])
-      cylinder(d=hook_diameter, h=hook_length, $fn=outer_fn);
-    }
-    translate([0, 0, -leg_length])
-    leg(through=false);
+module top()
+{
+	difference()
+	{
+		hull()
+		{
+			cylinder(d = outer_diameter, h = top_height, center = true, $fn = outer_fn);
+			translate([ outer_diameter / 2, 0, 0 ])
+			rotate([ side_angle, hook_angle, 0 ])
+			cylinder(d = hook_diameter, h = hook_length, $fn = outer_fn);
+		}
+		translate([ 0, 0, -leg_length ])
+		leg(through = false);
 
-    translate([-(leg_diameter/2) + (screw_head_height/2), 0, -top_height/4])
-    rotate([0, -90, 0])
-    screw_hole(center=false, screw_inset=screw_inset);
-  }
+		translate([ -(leg_diameter / 2) + (screw_head_height / 2), 0, -top_height / 4 ])
+		rotate([ 0, -90, 0 ])
+		screw_hole(center = false, screw_inset = screw_inset);
+	}
 }
 
-module hook() {
-  difference() {
-    hull() {
-      cylinder(d=outer_diameter, h=hook_height, center=true, $fn=outer_fn);
-      translate([outer_diameter/2, 0, 0])
-      rotate([side_angle, hook_angle, 0])
-      cylinder(d=hook_diameter, h=hook_length, $fn=outer_fn);
-    }
-    leg();
+module hook()
+{
+	difference()
+	{
+		hull()
+		{
+			cylinder(d = outer_diameter, h = hook_height, center = true, $fn = outer_fn);
+			translate([ outer_diameter / 2, 0, 0 ])
+			rotate([ side_angle, hook_angle, 0 ])
+			cylinder(d = hook_diameter, h = hook_length, $fn = outer_fn);
+		}
+		leg();
 
-    translate([-(leg_diameter/2) + (screw_head_height/2), 0, 0])
-    rotate([0, -90, 0])
-    screw_hole(center=false, screw_inset=screw_inset);
-  }
+		translate([ -(leg_diameter / 2) + (screw_head_height / 2), 0, 0 ])
+		rotate([ 0, -90, 0 ])
+		screw_hole(center = false, screw_inset = screw_inset);
+	}
 }
 
-module shelf() {
-  difference() {
-    hull() {
-      cylinder(d=outer_diameter, h=shelf_height, center=true, $fn=outer_fn);
-      translate([outer_diameter/2, 0, 0])
-      rotate([0, 90, 0])
-      cylinder(d=hook_diameter, h=shelf_length, $fn=outer_fn);
-    }
-    leg();
+module shelf()
+{
+	difference()
+	{
+		hull()
+		{
+			cylinder(d = outer_diameter, h = shelf_height, center = true, $fn = outer_fn);
+			translate([ outer_diameter / 2, 0, 0 ])
+			rotate([ 0, 90, 0 ])
+			cylinder(d = hook_diameter, h = shelf_length, $fn = outer_fn);
+		}
+		leg();
 
-    translate([-(leg_diameter/2) + (screw_head_height/2), 0, 0])
-    rotate([0, -90, 0])
-    screw_hole(center=false, screw_inset=screw_inset);
+		translate([ -(leg_diameter / 2) + (screw_head_height / 2), 0, 0 ])
+		rotate([ 0, -90, 0 ])
+		screw_hole(center = false, screw_inset = screw_inset);
 
-    rotate([side_angle, 0, 0])
-    translate([outer_diameter/2, -outer_diameter/2, 0])
-    cube([shelf_length, outer_diameter, shelf_height]);
+		rotate([ side_angle, 0, 0 ])
+		translate([ outer_diameter / 2, -outer_diameter / 2, 0 ])
+		cube([ shelf_length, outer_diameter, shelf_height ]);
 
-    translate([(shelf_length + (outer_diameter/2)) - shelf_screw_inset, 0, shelf_screw_extend/2])
-    rotate([180+side_angle, -shelf_screw_angle, 0])
-    screw_hole(extend=shelf_screw_extend, screw_inset=shelft_screw_inset);
-  }
+		translate([ (shelf_length + (outer_diameter / 2)) - shelf_screw_inset, 0, shelf_screw_extend / 2 ])
+		rotate([ 180 + side_angle, -shelf_screw_angle, 0 ])
+		screw_hole(extend = shelf_screw_extend, screw_inset = shelft_screw_inset);
+	}
 }
 
-module leg(through=true) {
-  if (leg_type == "dowel") {
-    dowel(through=through);
-  }
-  
-  if (leg_type == "baluster") {
-    baluster(through=through);
-  }
+module leg(through = true)
+{
+	if (leg_type == "dowel")
+	{
+		dowel(through = through);
+	}
+
+	if (leg_type == "baluster")
+	{
+		baluster(through = through);
+	}
 }
 
-module dowel(through=true) {
-  cylinder(d=leg_diameter, h=leg_length, through=through);
+module dowel(through = true)
+{
+	cylinder(d = leg_diameter, h = leg_length, through = through);
 }
 
-module baluster(through=true) {
-  cuboid([leg_diameter, leg_diameter, leg_length], fillet=leg_fillet, edges=[[0,0,0,0], [0,0,0,0], [1,1,1,1]], align=through ? [0,0,0] : [0,0,1]);
+module baluster(through = true)
+{
+	cuboid([ leg_diameter, leg_diameter, leg_length ], fillet = leg_fillet,
+	       edges = [ [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ], [ 1, 1, 1, 1 ] ], align = through ? [ 0, 0, 0 ] : [ 0, 0, 1 ]);
 }
 
-module screw_hole(center=true, extend = 0, screw_inset = 0) {
-  total_height = wall_thickness + extend - screw_inset;
-  union() {
-    cylinder(d=screw_diameter, h=total_height);
-    translate([0, 0, total_height - (screw_head_height/2)])
-    cylinder(d1=screw_diameter, d2=screw_head_diameter, h=screw_head_height, center=center);
-  }
+module screw_hole(center = true, extend = 0, screw_inset = 0)
+{
+	total_height = wall_thickness + extend - screw_inset;
+	union()
+	{
+		cylinder(d = screw_diameter, h = total_height);
+		translate([ 0, 0, total_height - (screw_head_height / 2) ])
+		cylinder(d1 = screw_diameter, d2 = screw_head_diameter, h = screw_head_height, center = center);
+	}
 }
 
-module index(part = part) {
-  if (part == "connector"){
-    connector();
-  } 
+module index(part = part)
+{
+	if (part == "connector")
+	{
+		connector();
+	}
 
-  if (part == "coupler"){
-    coupler(has_hook=coupler_has_hook);
-  }
+	if (part == "coupler")
+	{
+		coupler(has_hook = coupler_has_hook);
+	}
 
-  if (part == "foot"){
-    foot();
-  }
+	if (part == "foot")
+	{
+		foot();
+	}
 
-  if (part == "top"){
-    top();
-  }
+	if (part == "top")
+	{
+		top();
+	}
 
-  if (part == "hook"){
-    hook();
-  }
+	if (part == "hook")
+	{
+		hook();
+	}
 
-  if (part == "shelf"){
-    shelf();
-  }
+	if (part == "shelf")
+	{
+		shelf();
+	}
 }
 
 index();
