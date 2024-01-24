@@ -12,26 +12,39 @@ lug_screw_diemater = 6; // mm
 
 piezo_diameter = 30; // mm
 
-$fn = 100;
+$fn = 20;
 
 module drum_trigger()
+{
+	difference()
+	{
+		shell();
+
+		lugs();
+	}
+}
+
+module shell()
 {
 	difference()
 	{
 		cylinder(d = diameter, h = height);
 		cylinder(d = inner_diameter, h = height);
 		cylinder(d2 = diameter - rim_edge_thickness, d1 = 0, h = height);
+	}
+}
 
-		for (i = [0:360 / lugs:360])
-		{
-			translate([ 0, 0, height / 2 + lug_screw_spacing ])
-			rotate([ 90, 0, i ])
-			cylinder(d = lug_screw_diemater, h = diameter / 2);
+module lugs()
+{
+	for (i = [0:360 / lugs:360])
+	{
+		translate([ 0, 0, height / 2 + lug_screw_spacing ])
+		rotate([ 90, 0, i ])
+		cylinder(d = lug_screw_diemater, h = diameter / 2);
 
-			translate([ 0, 0, height / 2 - lug_screw_spacing ])
-			rotate([ 90, 0, i ])
-			cylinder(d = lug_screw_diemater, h = diameter / 2);
-		}
+		translate([ 0, 0, height / 2 - lug_screw_spacing ])
+		rotate([ 90, 0, i ])
+		cylinder(d = lug_screw_diemater, h = diameter / 2);
 	}
 }
 
