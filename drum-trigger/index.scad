@@ -17,6 +17,8 @@ piezo_base_raise = 0;         // mm
 piezo_padding_thickness = 20; // mm
 piezo_offset = 10;            // mm
 
+jack_diameter = 7; // mm
+
 // rim
 rim_height = 10;                 // mm
 rim_thickness = 10;              // mm
@@ -26,11 +28,10 @@ rim_lug_hole_inset_depth = 6;    // mm
 
 $fn = 20;
 
-part = "rim"; // "drum" | "rim"
+part = "drum"; // "drum" | "rim"
 
 // TODO
 // - add mount
-// - add jack
 
 module drum()
 {
@@ -41,6 +42,7 @@ module drum()
 			shell();
 
 			lugs();
+			jack();
 		}
 
 		piezo_base();
@@ -88,11 +90,25 @@ module drum()
 			cylinder(d = diameter, h = height);
 		}
 	}
+
+	module jack()
+	{
+		translate([ 0, 0, height / 2 ])
+		rotate([ 90, 0, 45 ])
+		cylinder(d = jack_diameter, h = diameter / 2);
+	}
 }
 
 module rim()
 {
 	difference()
+	{
+		base();
+		lug_holes();
+		outer_edge();
+	}
+
+	module base()
 	{
 		linear_extrude(height = rim_height)
 		{
@@ -105,6 +121,10 @@ module rim()
 				circle(d = diameter);
 			}
 		}
+	}
+
+	module lug_holes()
+	{
 		for (i = [0:360 / lugs:360])
 		{
 			rotate([ 0, 0, i ])
@@ -116,6 +136,12 @@ module rim()
 				cylinder(d = rim_lug_hole_inset_diameter, h = rim_lug_hole_inset_depth);
 			}
 		}
+	}
+
+	module outer_edge()
+	{
+		rotate_extrude() translate([ (diameter / 2) + rim_thickness, rim_height, 0 ])
+		circle(d = rim_height);
 	}
 }
 
