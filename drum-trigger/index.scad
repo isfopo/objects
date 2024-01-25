@@ -3,7 +3,7 @@ wall_thickness = 10; // mm
 inner_diameter = diameter - wall_thickness;
 height = diameter; // mm
 
-rim_edge_thickness = 2; // mm
+flat_edge_thickness = 2; // mm
 
 lugs = 4;
 
@@ -16,6 +16,13 @@ piezo_base_mount_height = 70; // mm
 piezo_base_raise = 0;         // mm
 piezo_padding_thickness = 20; // mm
 piezo_offset = 10;            // mm
+
+// rim
+rim_height = 10;                 // mm
+rim_thickness = 10;              // mm
+rim_lug_hole_diameter = 4;       // mm
+rim_lug_hole_inset_diameter = 6; // mm
+rim_lug_hole_inset_depth = 6;    // mm
 
 $fn = 20;
 
@@ -45,7 +52,7 @@ module drum()
 		{
 			cylinder(d = diameter, h = height);
 			cylinder(d = inner_diameter, h = height);
-			cylinder(d2 = diameter - rim_edge_thickness, d1 = 0, h = height);
+			cylinder(d2 = diameter - flat_edge_thickness, d1 = 0, h = height);
 		}
 	}
 
@@ -85,6 +92,31 @@ module drum()
 
 module rim()
 {
+	difference()
+	{
+		linear_extrude(height = rim_height)
+		{
+			difference()
+			{
+				offset(r = rim_thickness)
+				{
+					circle(d = diameter);
+				}
+				circle(d = diameter);
+			}
+		}
+		for (i = [0:360 / lugs:360])
+		{
+			rotate([ 0, 0, i ])
+			translate([ (diameter + rim_thickness) / 2, 0, 0 ])
+			union()
+			{
+				cylinder(d = rim_lug_hole_diameter, h = rim_height);
+				translate([ 0, 0, rim_height - rim_lug_hole_inset_depth ])
+				cylinder(d = rim_lug_hole_inset_diameter, h = rim_lug_hole_inset_depth);
+			}
+		}
+	}
 }
 
 if (part == "drum")
