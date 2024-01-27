@@ -1,7 +1,7 @@
 diameter = 152.4;    // mm
 wall_thickness = 10; // mm
 inner_diameter = diameter - wall_thickness;
-height = diameter; // mm
+height = diameter * 3 / 5; // mm
 
 flat_edge_thickness = 2; // mm
 
@@ -12,9 +12,9 @@ lug_screw_diemater = 6; // mm
 
 piezo_diameter = 30;          // mm
 piezo_base_height = 10;       // mm
-piezo_base_mount_height = 70; // mm
+piezo_base_mount_height = 60; // mm
 piezo_base_raise = 0;         // mm
-piezo_padding_thickness = 20; // mm
+piezo_padding_thickness = 10; // mm
 piezo_offset = 10;            // mm
 
 jack_diameter = 7; // mm
@@ -29,9 +29,6 @@ rim_lug_hole_inset_depth = 6;    // mm
 $fn = 20;
 
 part = "drum"; // "drum" | "rim"
-
-// TODO
-// - add mount
 
 module drum()
 {
