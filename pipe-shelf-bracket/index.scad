@@ -18,15 +18,9 @@ module pipe_shelf_bracket()
 {
 	module base()
 	{
-		union()
-		{
-			translate([ bracket_depth / 2, 0, bracket_thickness / 2 ])
-			cuboid([ bracket_depth, width, bracket_thickness ], chamfer = 4,
-			       edges = [ [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ], [ 1, 0, 0, 1 ] ]);
-
-			// translate([ 0, bracket_depth, 0 ])
-			// cuboid([])
-		}
+		translate([ bracket_depth / 2, 0, bracket_thickness / 2 ])
+		cuboid([ bracket_depth, width, bracket_thickness ], chamfer = 4,
+		       edges = [ [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ], [ 1, 0, 0, 1 ] ]);
 	}
 
 	difference()
