@@ -1,26 +1,26 @@
 use <../libraries/BOSL/shapes.scad>
 use <../libraries/BOSL/constants.scad>
 
-pipe_diameter = 20; // mm
+pipe_diameter = 22; // mm
 thickness = 5;      // mm
 width = pipe_diameter + thickness + thickness;
 height = 40; // mm
 
-bracket_depth = 50;     // mm
+bracket_depth = 60;     // mm
 bracket_thickness = 10; // mm
 
-bracket_screw_diameter = 3;       // mm
-bracket_screw_head_diameter = 5;  // mm
+bracket_screw_diameter = 5;       // mm
+bracket_screw_head_diameter = 10; // mm
 bracket_screw_head_thickness = 5; // mm
 
-clamp_depth = 20;                        // mm
-clamp_gap = 6;                           // mm
+clamp_depth = 14;                        // mm
+clamp_gap = 10;                          // mm
 clamp_width = thickness * 2 + clamp_gap; // mm
 clamp_screw_amount = 2;                  // count
 clamp_screw_diameter = 3;                // mm
 clamp_screw_expand = 30;                 // mm
 
-$fn = 20;
+$fn = 50;
 
 module pipe_shelf_bracket()
 {
@@ -54,7 +54,10 @@ module pipe_shelf_bracket()
 			{
 				division = (height + clamp_screw_expand) / (clamp_screw_amount + 1);
 				level = i * division;
-				translate([ -clamp_depth, clamp_width / 2, level - (clamp_screw_expand / 2) ])
+				translate([
+					-((clamp_depth + pipe_diameter / 2) - clamp_depth / 2), clamp_width / 2,
+					level - (clamp_screw_expand / 2)
+				])
 				rotate([ 90, 0, 0 ])
 				cylinder(h = clamp_width, d = clamp_screw_diameter);
 			}
