@@ -1,5 +1,4 @@
 use <../libraries/BOSL/shapes.scad>
-use <../libraries/BOSL/constants.scad>
 
 pipe_diameter = 22; // mm
 thickness = 5;      // mm
@@ -13,11 +12,11 @@ bracket_screw_diameter = 5;       // mm
 bracket_screw_head_diameter = 10; // mm
 bracket_screw_head_thickness = 5; // mm
 
-clamp_depth = 14;                        // mm
+clamp_depth = 16;                        // mm
 clamp_gap = 10;                          // mm
 clamp_width = thickness * 2 + clamp_gap; // mm
 clamp_screw_amount = 2;                  // count
-clamp_screw_diameter = 3;                // mm
+clamp_screw_diameter = 5;                // mm
 clamp_screw_expand = 30;                 // mm
 
 $fn = 50;
