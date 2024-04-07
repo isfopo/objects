@@ -3,10 +3,11 @@ use <../libraries/BOSL/shapes.scad>
 pipe_diameter = 22; // mm
 thickness = 5;      // mm
 width = pipe_diameter + thickness + thickness;
-height = 40; // mm
+height = 60; // mm
 
-bracket_depth = 60;     // mm
+bracket_depth = 70;     // mm
 bracket_thickness = 10; // mm
+bracket_width = 80;
 
 bracket_screw_diameter = 5;       // mm
 bracket_screw_head_diameter = 10; // mm
@@ -28,8 +29,13 @@ module pipe_shelf_bracket()
 		difference()
 		{
 			translate([ bracket_depth / 2, 0, bracket_thickness / 2 ])
-			cuboid([ bracket_depth, width, bracket_thickness ], chamfer = 4,
-			       edges = [ [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ], [ 1, 0, 0, 1 ] ]);
+			hull()
+			{
+				translate([ -(clamp_depth) - (pipe_diameter / 2), 0, 0 ])
+				cylinder(h = bracket_thickness, d = width, center = true);
+				cuboid([ bracket_depth, bracket_width, bracket_thickness ], chamfer = 4,
+				       edges = [ [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ], [ 1, 0, 0, 1 ] ]);
+			}
 			mount_screw_hole(bracket_screw_diameter, bracket_screw_head_diameter, bracket_screw_head_thickness,
 			                 bracket_thickness, location = [ bracket_depth - (width / 2), 0 ], flip = true);
 		}
