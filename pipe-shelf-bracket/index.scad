@@ -15,7 +15,7 @@ bracket_screw_head_thickness = 5; // mm
 bracket_screw_spacing = 50;
 
 clamp_depth = 16;                        // mm
-clamp_gap = 10;                          // mm
+clamp_gap = 12;                          // mm
 clamp_width = thickness * 2 + clamp_gap; // mm
 clamp_screw_amount = 2;                  // count
 clamp_screw_diameter = 5;                // mm
