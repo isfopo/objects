@@ -12,6 +12,7 @@ bracket_width = 80;
 bracket_screw_diameter = 5;       // mm
 bracket_screw_head_diameter = 10; // mm
 bracket_screw_head_thickness = 5; // mm
+bracket_screw_spacing = 50;
 
 clamp_depth = 16;                        // mm
 clamp_gap = 10;                          // mm
@@ -36,6 +37,11 @@ module pipe_shelf_bracket()
 				cuboid([ bracket_depth, bracket_width, bracket_thickness ], chamfer = 4,
 				       edges = [ [ 0, 0, 0, 0 ], [ 0, 0, 0, 0 ], [ 1, 0, 0, 1 ] ]);
 			}
+			translate([ 0, bracket_screw_spacing / 2, 0 ])
+			mount_screw_hole(bracket_screw_diameter, bracket_screw_head_diameter, bracket_screw_head_thickness,
+			                 bracket_thickness, location = [ bracket_depth - (width / 2), 0 ], flip = true);
+
+			translate([ 0, bracket_screw_spacing / -2, 0 ])
 			mount_screw_hole(bracket_screw_diameter, bracket_screw_head_diameter, bracket_screw_head_thickness,
 			                 bracket_thickness, location = [ bracket_depth - (width / 2), 0 ], flip = true);
 		}
