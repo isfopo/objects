@@ -15,11 +15,16 @@ bracket_screw_head_thickness = 5; // mm
 bracket_screw_spacing = 50;
 
 clamp_depth = 16;                        // mm
-clamp_gap = 12;                          // mm
+clamp_gap = 14;                          // mm
 clamp_width = thickness * 2 + clamp_gap; // mm
 clamp_screw_amount = 2;                  // count
 clamp_screw_diameter = 5;                // mm
 clamp_screw_expand = 30;                 // mm
+
+brace_width = 30;      // mm
+brace_height = height; // mm
+brace_depth = 40;      // mm
+brace_angle = 110;     // deg
 
 $fn = 50;
 
@@ -84,10 +89,22 @@ module pipe_shelf_bracket()
 				cylinder(h = height, d = width);
 			}
 			base();
+			rotate([ 0, 0, brace_angle / 2 ])
+			brace();
+			rotate([ 0, 0, -brace_angle / 2 ])
+			brace();
 		}
 
 		cylinder(h = height, d = pipe_diameter);
 	}
+}
+
+module brace()
+{
+	polyhedron(
+	    points =
+	        [ [ 0, -brace_width / 2, 0 ], [ brace_depth, 0, 0 ], [ 0, brace_width / 2, 0 ], [ 0, 0, brace_height ] ],
+	    faces = [ [ 0, 1, 2 ], [ 1, 0, 3 ], [ 0, 2, 3 ], [ 2, 1, 3 ] ]);
 }
 
 module mount_screw_hole(screw_diameter, screw_head_diameter, screw_head_height, thickness, location = [ 0, 0 ],
